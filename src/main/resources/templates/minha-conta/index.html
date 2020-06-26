@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head th:include="layout :: htmlhead"></head>
+    
+    <body>
+        <div class="container">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            <h1>Minha Conta</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <td>Nome</td>
+                        <td>Sexo</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${listaCliente}">
+                        <td th:text="${cliente.id}"></td>
+                        <td th:text="${cliente.dataCriacao}"></td>
+                        <td th:text="${cliente.dataModificacao}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div th:include="layout :: footer" id="footer">(footer)</div>
+    </body>
+</html>
