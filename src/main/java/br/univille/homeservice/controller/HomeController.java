@@ -6,18 +6,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
  
 @Controller // faz com essa classe seja um controllador. -> aonde injetamos rotas do sistemas
-@RequestMapping("/home") // definimos a rota. 
+@RequestMapping("/") // definimos a rota. 
 public class HomeController {
     
-    @GetMapping({"index", ""})
-    
+    @GetMapping("")
     public ModelAndView index(){
-        return new ModelAndView("home/index.html", "titulo", "Home");
+        return new ModelAndView("home/index");
     }
     
-    @GetMapping("contato")
-    @ResponseBody
-    public String contato(){
-        return "Pag de Contato";
-    }
 }

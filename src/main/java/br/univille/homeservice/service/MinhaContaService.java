@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.univille.homeservice.model.Cliente;
+import br.univille.homeservice.model.Pessoa;
 
 
 /**
@@ -16,10 +16,10 @@ import br.univille.homeservice.model.Cliente;
 @Service
 public interface MinhaContaService {
     
-	public void cadastrar(Cliente cliente);
+	public void cadastrar(Pessoa pessoa);
 
-	public void editar(Cliente cliente);
+	public void deletar(Pessoa pessoa);
 
-    public List<Cliente> visualizar();
-    
+	public List<Pessoa> visualizarTodos();
+
 }

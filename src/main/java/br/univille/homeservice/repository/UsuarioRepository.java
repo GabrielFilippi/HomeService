@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.univille.homeservice.model.Cliente;
+import br.univille.homeservice.model.Usuario;
+
 
 //repositorio de dados que eh onde colocamos as querys de SQL, select, update, insert and delete.
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long>{
-    List<Cliente> findByIdContains(int id);
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+    List<Usuario> findByIdContains(int id);
 }

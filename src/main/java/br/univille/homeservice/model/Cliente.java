@@ -3,7 +3,6 @@ package br.univille.homeservice.model;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +25,7 @@ public class Cliente {
 	
 	@Temporal(value= TemporalType.TIMESTAMP)
 	private Date dataModificacao;
+
 /*
 	private Avaliacao avaliacao;
 
@@ -33,9 +33,10 @@ public class Cliente {
 
 	private Avaliacao avaliacao;
 
-	private Pessoa pessoa;
-*/
 	
+*/
+	@OneToOne(cascade = CascadeType.ALL)
+	private Pessoa pessoa;
 
 /*
 	private MeiosPagamento meiosPagamento;

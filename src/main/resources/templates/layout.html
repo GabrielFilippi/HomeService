@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="htmlhead">
+        <meta name="author" content="Gabriel Filippi e Eliton Zimmerman">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    </head>
+
+    <body>
+        <header th:fragment="header" >
+            <nav class="navbar navbar-expand-md  fixed-top navbar-dark bg-dark">
+                <a class="navbar-brand" href="../" title='Home Page'>HomeServices</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="minha-conta">Minha Conta</a>
+                      </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <footer th:fragment="footer" class="footer text-center" id="footer">
+            © HomeServices 2020 - 2020
+            <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+            <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+            <script th:src="@{/webjars/bootbox.js/4.4.0/bootbox.js}"></script>
+        </footer>
+    </body>
+</html>
