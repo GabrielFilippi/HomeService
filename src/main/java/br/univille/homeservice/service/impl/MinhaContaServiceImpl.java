@@ -29,7 +29,5 @@ public class MinhaContaServiceImpl implements MinhaContaService {
     public List<Pessoa> visualizarTodos() {
         return repository.findAll();
     }
-
     
-
 }
