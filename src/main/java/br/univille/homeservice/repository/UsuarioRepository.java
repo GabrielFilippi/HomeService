@@ -1,15 +1,13 @@
 package br.univille.homeservice.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.univille.homeservice.model.Usuario;
 
-
-//repositorio de dados que eh onde colocamos as querys de SQL, select, update, insert and delete.
+//repositorio de dados que eh onde colocamos as querys de SQL select
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
-    List<Usuario> findByIdContains(int id);
+    Usuario findByLogin(String login);
+    Usuario findByLoginAndSenha(String login, String senha);
 }
