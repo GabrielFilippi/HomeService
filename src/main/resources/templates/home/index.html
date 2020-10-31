@@ -1,28 +1,74 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head th:include="layout :: htmlhead"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-    <body>
-        <header th:replace="layout :: header"></header>
+<head th:include="layout :: htmlhead"></head>
 
-        <div class="container">
-            <div class="row  justify-content-md-center" style='margin-top: 80px;'>
-                <div class="col col-lg-7 card card-promotions">
-                  <div class="row card-body text-center">
-                    <div class="col-lg-12">
-                        <h4>Alunos:</h4>
-                        <p>
-                            Gabriel Filippi <br>
-                            Eliton Zimmerman
-                        </p>
-                    </div>
-                  </div>
-                </div>
+<body>
+    <header th:replace="layout :: header"></header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Heading Row -->
+        <div class="row align-items-center my-5 ">
+            <div class="col-lg-12 headerContent">
+                <h3 class="justify-content-center">HomeServices</h3>
+                <p>Seu problema se tornando solução em poucos cliks!</p>
+                <button type="button" class="btn btn-light d-flex justify-content-center" style="float: right; margin-right: 5%;">Comece Agora</button>
             </div>
+        </div>
+        <!-- /.row -->
 
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="text-center h2Explain">Como funciona?</h2>
+                <p class="text-center"><small>PARA SOLICITAR UM ORÇAMENTO GRATUITO É FÁCIL!</small></p>
+            </div>
+            <div>
+                <ul>
+                    <li>Crie uma conta sem custo algum</li>
+                    <li>Procure o tipo de Profissional que deseja</li>
+                    <li>Selecione o seu problema</li>
+                    <li>Solicite um orçamento</li>
+                </ul>
+                <p>
+                    PRONTO! <br>
+                    Agora é só esperar que os profissionais entraram em contato via chat para que possam enviar as propostas e agendar um dia para lhe atender!
+                </p>
+            </div>
         </div>
 
-        <div th:include="layout :: footer" class="footer text-center" id="footer">(footer)</div>
-    </body>
+        <div class="row rowExplain">
+            <div class="col-lg-12">
+                <p class="text-center"><small>MAS...</small></p>
+                <h2 class="text-center h2Explain">Posso confiar nos Profissionais?</h2>
+            </div>
+            <div>
+                <p>Os profissionais cadastrados no HomeService passam pelo um pré checagem, os itens requisitados são:</p>
+                <ul>
+                    <li>Documento de Identidade</li>
+                    <li>Comprovante de Residencia</li>
+                </ul>
+                <p class="howToWorkFinish"> 
+                    Além disso temos nosso sistema de feedback aonde nossos clientes podem avaliar cada profissional após o serviço, e todos essas avaliações estão disponiveis para você, é só acessar o perfil do profissional!
+                </p>
+            </div>
+        </div>
+
+        <div class="row rowExplain">
+            <div class="col-lg-12">
+                <h2 class="text-center h2Explain">Como pagar pelo serviço realizado</h2>
+            </div>
+            <div class="col-lg-12 text-center">
+                <br>
+                <p>Fique Tranquilo, O pagamento pode ser feito via app ou se preferir pode pagar em dinheiro diretamente para o profissional!</p>
+                <a class="btn btn-dark btn-lg"  href="#">COMECE AGORA</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+    <footer th:include="layout :: footer" class="footer text-center" id="footer">(footer)</footer>
+</body>
+
 </html>

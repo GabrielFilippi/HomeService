@@ -112,7 +112,8 @@ public class Pessoa {
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao; 
-	}
+	} 
+	
 
 	public Date getDataModificacao() {
 		return this.dataModificacao;
