@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead"></head>
+
+<body>
+    <header th:replace="layout :: header"></header>
+
+    <!-- Page Content -->
+    <div class="content container">
+        <section class="sectionTitlePage">
+            <div class="container">
+                <h2 class="title-page">Minha Conta</h2>
+            </div> <!-- container //  -->
+        </section>
+
+        <section class="section-content padding-y">
+            <div class="container">
+
+                <div class="row">
+                    <aside  th:replace="layout :: navMinhaContaCliente">
+                    </aside> 
+
+                    <main class="col-md-9">
+
+                        <article class="card">
+                            <div class="card-body">
+                                <form class="row" th:action="@{/minha-conta/endereco/(formEndereco)}" th:object="${cliente}" method="post">
+
+                                    <input type="hidden" th:field="*{id}">
+                                    <input type="hidden" th:field="*{pessoa.id}">
+                                    <input type="hidden" th:field="*{endereco.id}">
+                                    <input type="hidden" th:field="*{meiosPagamento.id}">
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-row">
+                                            <div class="col-md form-group">
+                                                <h4>Edite seu Endereço</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-row">
+                                            <div class="col form-group">
+                                                <label>CEP</label>
+                                                <input type="text" class="form-control" value="" th:field="*{endereco.cep}">
+                                            </div>
+                                            <div class="col form-group">
+                                                <label>Logradouro</label>
+                                                <input type="text" class="form-control" value="" th:field="*{endereco.logradouro}">
+                                            </div>
+                                            <div class="col form-group">
+                                                <label>Número</label>
+                                                <input type="text" class="form-control" value="" th:field="*{endereco.numero}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col form-group">
+                                                <label>Bairro</label>
+                                                <input type="text" class="form-control" value="" th:field="*{endereco.bairro}">
+                                            </div>
+                                            <div class="col form-group">
+                                                <label>Cidade</label>
+                                                <input type="text" class="form-control" value="" th:field="*{endereco.localidade}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col form-group">
+                                                <label>Complemento</label>
+                                                <input type="text" class="form-control" value="" th:field="*{endereco.complemento}">
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </article>
+
+                    </main>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+
+</body>
+
+</html>

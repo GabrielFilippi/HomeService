@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead"></head>
+
+<body>
+  <header th:replace="layout :: header"></header>
+
+  <!-- Page Content -->
+  <div class="content container">
+
+    <section class="sectionTitlePage">
+      <div class="container">
+        <h2 class="title-page">Registre-se</h2>
+      </div> <!-- container //  -->
+    </section>
+
+    <section class="section-content padding-y">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-md-12">
+            <form th:action="@{/novo-profissional/(formCadastro)}" th:object="${profissional}" method="post">
+              <input type="hidden" th:field="*{id}">
+              <input type="hidden" th:field="*{usuario.id}">
+              <input type="hidden" th:field="*{pessoa.id}">
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" th:field="*{pessoa.nome}" class="form-control" placeholder="Nome Completo" required>
+                <small id="nomeHelp" class="form-text text-muted"></small>
+              </div>
+              <div class="form-group">
+                <label for="nome">CPF</label>
+                <input type="text" th:field="*{pessoa.cpf}" class="form-control" placeholder="xxx.xxx.xxx-xx" required>
+                <small id="nomeHelp" class="form-text text-muted"></small>
+              </div>
+              <div class="form-group">
+                <label for="telefone">Celular</label>
+                <input type="tel" th:field="*{pessoa.celular}" class="form-control" placeholder="(00) 00000-0000"
+                  maxlength="15" required>
+                <small id="telefoneHelp" class="form-text text-muted"></small>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" th:field="*{pessoa.email}" class="form-control" placeholder="email@dominio.com"
+                  maxlength="255" required>
+                <small id="emailHelp" class="form-text text-muted"></small>
+              </div>
+              <div class="form-group">
+                <label for="sexo">Sexo</label>
+                <select th:field="*{pessoa.sexo}" class="form-control" required>
+                  <option th:value="0" th:text="Selecione..."></option>
+                  <option th:value="f" th:text="Feminino">Feminino</option>
+                  <option th:value="m" th:text="Masculino">Masculino</option>
+                </select>
+                <small id="telefoneHelp" class="form-text text-muted"></small>
+              </div>
+              <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" th:field="*{usuario.senha}" class="form-control" placeholder="Sua Senha"
+                  required>
+                <small id="senhaHelp" class="form-text text-muted"></small>
+              </div>
+              <div class="form-group">
+                <label for="senha">Digite novamente a Senha</label>
+                <input type="password" class="form-control" placeholder="Sua Senha" required>
+                <small id="senhaHelp" class="form-text text-muted"></small>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" required>&nbsp; Eu aceito os <a href="#">Termos e Condições de uso.</a>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Cadastre-se</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div th:replace="layout :: footer"></div>
+
+</body>
+
+</html>

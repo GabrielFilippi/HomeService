@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead"></head>
+
+<body>
+    <header th:replace="layout :: header"></header>
+
+    <!-- Page Content -->
+    <div class="content container">
+        <section class="sectionTitlePage">
+            <div class="container">
+                <h2 class="title-page">Minha Conta</h2>
+            </div> <!-- container //  -->
+        </section>
+
+        <section class="section-content padding-y">
+            <div class="container">
+                <div class="row">
+                    <aside  th:replace="layout :: navMinhaContaProfissional">
+                    </aside> 
+
+                    <main class="col-md-9" th:object="${profissional}">
+
+                        <article class="card mb-3">
+                            <div class="card-body">
+
+                                <figure class="icontext">
+                                    <div class="icon">
+                                        <img class="rounded-circle img-sm border" src="images/avatars/avatar3.jpg">
+                                    </div>
+                                    <div class="text">
+                                        <strong th:text="*{pessoa.nome}"> </strong> <br>
+                                        <p class="mb-2" th:text="*{pessoa.email}"> </p>
+                                        <a href="meus-dados.html" class="btn btn-light btn-sm">Editar</a>
+                                    </div>
+                                </figure>
+                                <hr>
+                            
+                                <article class="card-group card-stat">
+
+                                    <figure class="card bg">
+                                        <div class="p-3">
+                                            <h4 class="title">X</h4>
+                                            <span>Orçamentos Pendentes</span>
+                                        </div>
+                                    </figure>
+                                    <figure class="card bg">
+                                        <div class="p-3">
+                                            <h4 class="title">X</h4>
+                                            <span>Orçamentos Aprovados</span>
+                                        </div>
+                                    </figure>
+                                    <figure class="card bg">
+                                        <div class="p-3">
+                                            <h4 class="title">X</h4>
+                                            <span>Orçamento Finalizados</span>
+                                        </div>
+                                    </figure>
+                                    
+                                </article>
+        
+                            </div>
+                        </article>
+
+                        <article class="card  mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Orçamentos Recentes </h5> <!-- OS ULTIMOS 3 apenas -->
+                                <article class="card-group card-stat">
+                                    <figure class="card bg">
+                                        <div class="p-4">
+                                            <time class="text-muted">
+                                                <i class="fa fa-calendar-alt"></i> 05/11/2020
+                                            </time>
+                                            <p>#298334 - Limpar Telhado </p>
+                                            <span class="textBottom text-warning">Orçamento em Negociação </span>
+                                        </div>
+                                    </figure>
+                                    <figure class="card bg">
+                                        <div class="p-4">
+                                            <time class="text-muted">
+                                                <i class="fa fa-calendar-alt"></i> 12/09/2020
+                                            </time>
+                                            <p>#169349 - Pintura Sacada </p>
+                                            <span class="textBottom text-success">Orçamento Aprovado </span>
+                                        </div>
+                                    </figure>
+                                    <figure class="card bg">
+                                        <div class="p-4">
+                                            <time class="text-muted">
+                                                <i class="fa fa-calendar-alt"></i> 12/08/2020
+                                            </time>
+                                            <p>#169992 - Resolver problema de encanamento </p>
+                                            <span class="textBottom text-dark">Orçamento Cancelado </span>
+                                        </div>
+                                    </figure>
+                                </article>
+                                <div class="row">
+                                    <div class="container">
+                                        <div class="col-lg-12 divButtonOrcamentosRecentes">
+                                            <a href="#" class="btn btn-outline-primary btn-block">
+                                                Visualizar Todos os Orçamentos <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                    </main>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+
+</body>
+
+</html>

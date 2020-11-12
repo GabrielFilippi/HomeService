@@ -19,12 +19,23 @@ public class Cliente {
 
 	@OneToOne(cascade = CascadeType.ALL) //CascadeType.ALL -> Tudo que acontecer no usuario reflete  no Cliente, como por exemplo apaga o Usuario, apaga o cliente.
 	private Usuario usuario;             //CascadeType.REFRESH -> Cada vez que trazer o Cliente vai Trazer o Usuario junto.
-                                         //CascadeType.MERGE -> se acontecer uma mudanca no Usuario Ja salva o Cliente.
+										 //CascadeType.MERGE -> se acontecer uma mudanca no Usuario Ja salva o Cliente.
+										 
+	@OneToOne(cascade = CascadeType.ALL)
+	private Pessoa pessoa;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Endereco endereco;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private MeiosPagamento meiosPagamento;
+
 	@Temporal(value= TemporalType.TIMESTAMP)
 	private Date dataCriacao;
 	
 	@Temporal(value= TemporalType.TIMESTAMP)
 	private Date dataModificacao;
+
 
 /*
 	private Avaliacao avaliacao;
@@ -33,20 +44,18 @@ public class Cliente {
 
 	private Avaliacao avaliacao;
 
-	
-*/
-	@OneToOne(cascade = CascadeType.ALL)
-	private Pessoa pessoa;
-
-/*
-	private MeiosPagamento meiosPagamento;
-
 	private CartaoCredito cartaoCredito;
-
-	private Endereco endereco;
 
 	private Recibo recibo;
 */
+	
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
@@ -55,5 +64,44 @@ public class Cliente {
 		this.usuario = usuario;
 	}
 
+	public Pessoa getPessoa() {
+		return this.pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public Endereco getEndereco() {
+		return this.endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public MeiosPagamento getMeiosPagamento() {
+		return this.meiosPagamento;
+	}
+
+	public void setMeiosPagamento(MeiosPagamento meiosPagamento) {
+		this.meiosPagamento = meiosPagamento;
+	}
+ 
+	public Date getDataCriacao() {
+		return this.dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataModificacao() {
+		return this.dataModificacao;
+	}
+
+	public void setDataModificacao(Date dataModificacao) {
+		this.dataModificacao = dataModificacao;
+	}
 
 }

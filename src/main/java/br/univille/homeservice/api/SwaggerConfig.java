@@ -29,7 +29,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage("br.univille.homeservice.api")).paths(PathSelectors.any())
                 .build().apiInfo(apiInfo()).securitySchemes(Arrays.asList(apiKey()))
-                .securityContexts(Arrays.asList(securityContext()));
+                .securityContexts(Arrays.asList(securityContext())); 
     }
 
     private ApiInfo apiInfo() {

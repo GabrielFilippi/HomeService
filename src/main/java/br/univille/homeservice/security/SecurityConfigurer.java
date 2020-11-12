@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import br.univille.homeservice.service.impl.MyUserDetailsService;
 
-@EnableWebSecurity
+@EnableWebSecurity()
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
@@ -38,12 +38,20 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/api/v1/auth/signin", "/swagger-ui.html").permitAll()
-                // .anyRequest().authenticated()
-                .antMatchers("/api/**").authenticated().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable()
+            //.anyRequest().authenticated()
+            .authorizeRequests().antMatchers("/api/v1/auth/signin","/swagger-ui.html","/webjars/**","/v2/api-docs/**","/swagger-resources/**").permitAll()
+            .antMatchers("/api/**").authenticated()
+            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests().antMatchers("/fonte_dados/**").permitAll().and().headers().frameOptions().disable()
+            .and()
+            .authorizeRequests().antMatchers("/**").authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+            .and().formLogin().permitAll()
+            .defaultSuccessUrl("/", true).and().logout().permitAll();
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+            //http.headers().frameOptions().disable();
     }
 
     @Override

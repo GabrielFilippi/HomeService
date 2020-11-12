@@ -2,6 +2,8 @@ package br.univille.homeservice.service.impl;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,6 +34,12 @@ public class MyUserDetailsService implements UserDetailsService {
         Usuario usuario = repository.findByLogin(nomeUsuario);
         return new User(usuario.getLogin(),usuario.getSenha(), new ArrayList<>());
     }  
+
+    public Usuario getUserLogged(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario usuario = repository.findByLogin(authentication.getName());
+        return usuario;
+    }
 
     public void save(Usuario usuario){
         if (usuario.getSenha().length() != 0) 

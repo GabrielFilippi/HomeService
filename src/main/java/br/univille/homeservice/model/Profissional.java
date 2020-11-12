@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,16 +22,24 @@ public class Profissional {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="habilidade_id")
+	private List<Habilidade> listaHabilidade = new ArrayList<Habilidade>();
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Usuario usuario;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Pessoa pessoa;
+
+	@Column(length = 1)
 	private boolean statusAtivacao;
 
 	@Temporal(value= TemporalType.TIMESTAMP)
 	private Date dataCriacao;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="habilidade_id")
-	private List<Habilidade> listaHabilidade = new ArrayList<Habilidade>();
-
-	
+	@Temporal(value= TemporalType.TIMESTAMP)
+	private Date dataModificacao;
 
 	/*
 	private ServicoOferecido[] servicoOferecido;
@@ -50,9 +59,6 @@ public class Profissional {
 	private Pessoa pessoa;
 	*/
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Usuario usuario;
-
 	
 
 	public long getId() {
@@ -61,22 +67,6 @@ public class Profissional {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public boolean isStatusAtivacao() {
-		return this.statusAtivacao;
-	}
-
-	public void setStatusAtivacao(boolean statusAtivacao) {
-		this.statusAtivacao = statusAtivacao;
-	}
-
-	public Date getDataCriacao() {
-		return this.dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
 	}
 
 	public List<Habilidade> getListaHabilidade() {
@@ -95,20 +85,36 @@ public class Profissional {
 		this.usuario = usuario;
 	}
 
-	public void cadastrar(Profissional profissional) {
-
+	public Pessoa getPessoa() {
+		return this.pessoa;
 	}
 
-	public void editar(Profissional profissional) {
-
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
-	public void excluir(Profissional profissional) {
-
+	public boolean isStatusAtivacao() {
+		return this.statusAtivacao;
 	}
 
-	public void visualizar(Profissional profissional) {
+	public void setStatusAtivacao(boolean statusAtivacao) {
+		this.statusAtivacao = statusAtivacao;
+	}
 
+	public Date getDataModificacao() {
+		return this.dataModificacao;
+	}
+
+	public void setDataModificacao(Date dataModificacao) {
+		this.dataModificacao = dataModificacao;
+	}
+
+	public Date getDataCriacao() {
+		return this.dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
 }
