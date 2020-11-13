@@ -6,11 +6,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}" />
-
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}">
+    <link th:href="@{/webjars/fullcalendar/5.0.1/main.min.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -84,6 +85,11 @@
         <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
         <script th:src="@{/webjars/bootbox.js/4.4.0/bootbox.js}"></script>
         <script th:src="@{/webjars/font-awesome/5.15.1/js/all.min.js}"></script>
+
+        <script th:src="@{/webjars/momentjs/2.24.0/min/moment.min.js}"></script>
+        <script th:src="@{/webjars/fullcalendar/5.0.1/main.min.js}"></script>
+        <script th:src="@{/webjars/fullcalendar/5.0.1/locales/pt-br.js}"></script>
+        <script th:src="@{/js/agendaEventos.js}"></script>
 
     </footer>
 </body>

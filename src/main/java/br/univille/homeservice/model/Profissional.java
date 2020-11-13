@@ -25,12 +25,14 @@ public class Profissional {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="habilidade_id")
 	private List<Habilidade> listaHabilidade = new ArrayList<Habilidade>();
+	
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Pessoa pessoa;
+
 
 	@Column(length = 1)
 	private boolean statusAtivacao;
@@ -48,15 +50,12 @@ public class Profissional {
 
 	private Orcamento orcamento;
 
-	private Agenda agenda;
-
 	private Agenda[] agenda;
 
 	private Favorito[] favorito;
 
 	private Avaliacao[] avaliacao;
-
-	private Pessoa pessoa;
+	
 	*/
 
 	

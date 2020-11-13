@@ -58,11 +58,17 @@ public class MinhaContaClienteController {
     @PostMapping(params="formMeusDados", path = "dados")
     public ModelAndView salvarDados(Cliente cliente){
 
-        cliente.getPessoa().setDataCriacao(dataAtual);
-        cliente.getPessoa().setDataModificacao(dataAtual);
+        if(cliente.getId() == 0){
+            cliente.getPessoa().setDataCriacao(dataAtual);
+            cliente.getPessoa().setDataModificacao(dataAtual);
 
-        service.saveCliente(cliente);
-        return new ModelAndView("redirect:/minha-conta-cliente/dados");
+            service.saveCliente(cliente);
+        }else{
+
+            service.savePessoa(cliente.getPessoa());
+        }
+        
+        return new ModelAndView("redirect:/minha-conta/dados");
     }
 
     //salva o endereço do cliente
@@ -70,7 +76,7 @@ public class MinhaContaClienteController {
     public ModelAndView salvarEndereco(Cliente cliente){
         
         service.saveCliente(cliente);
-        return new ModelAndView("redirect:/minha-conta-cliente/endereco");
+        return new ModelAndView("redirect:/minha-conta/endereco");
     }
 
     //salva a forma de pagamento padrão do cliente
@@ -81,7 +87,7 @@ public class MinhaContaClienteController {
         cliente.getMeiosPagamento().setDataModificacao(dataAtual);
 
         service.saveCliente(cliente);
-        return new ModelAndView("redirect:/minha-conta-cliente/forma-pagamento");
+        return new ModelAndView("redirect:/minha-conta/forma-pagamento");
     }
 
     
