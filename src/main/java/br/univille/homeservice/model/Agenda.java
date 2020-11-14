@@ -39,22 +39,6 @@ public class Agenda {
 	@Column (length = 50)
 	private String dataFinal;
 
-
-
-	public Agenda(){
-		
-	}	
-	
-	public Agenda(String titulo, String dataInicio, String dataFinal, String descricao) {
-		super();
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.dataInicio = dataInicio;
-		this.dataFinal = dataFinal;
-	}
-
-
-
 	public long getId() {
 		return this.id;
 	}

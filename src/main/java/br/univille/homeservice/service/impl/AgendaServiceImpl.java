@@ -1,8 +1,10 @@
 package br.univille.homeservice.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import br.univille.homeservice.model.Agenda;
@@ -18,5 +20,6 @@ public class AgendaServiceImpl implements AgendaService{
     @Override
     public ArrayList<Agenda> getAgenda(long id) {
         return agendaRepository.findAllByProfissionalId(id);
+
     }
 }
