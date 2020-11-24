@@ -16,13 +16,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			center: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay'
 		},
+		eventTimeFormat: { // like '14:30:00'
+			hour: '2-digit',
+			minute: '2-digit',
+			meridiem: false
+		},
 		locale: 'pt-br',
 		initialDate: dataAtual,
 		navLinks: true, // can click day/week names to navigate views
 		selectable: true,
 		selectMirror: true,
 		select: function (arg) { // adicionar evento no dia selecionado
-			gerenciarEvent(arg);
+			gerenciarEvent(arg, idProfissional);
 
 			/*
 			var title = prompt('Event Title:');
@@ -38,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			calendar.unselect()
 		},
 		eventClick: function (arg) { // abrir modal com os dados(form) e editalos e salvar, podendo excluir também
-			gerenciarEvent(arg);
+			gerenciarEvent(arg, idProfissional);
 			/*
 			if (confirm('Are you sure you want to delete this event?')) {
 				arg.event.remove()
@@ -51,27 +56,33 @@ document.addEventListener('DOMContentLoaded', function () {
 	calendar.render();
 	buscaDados(idProfissional, mes);
 
-	function gerenciarEvent(arg){
+	function gerenciarEvent(arg, idProfissional) {
 		var title = "";
-		var start = "";
-		var end = "";
+		var idAgenda = 0;
+
+		var start = formataData(arg.start)
+		var end = formataData(arg.end);
 		var description = "";
+		$('#delEvento').hide();
 
-		if(arg.title){
-			title = arg.title;
-			start = arg.start;
-			end = arg.end;
-			description = arg.description;
-
-			$('#delEvento').show();
+		//se o id existir, completa com os dados do banco de dados
+		if (arg.event && arg.event.id) {
+			idAgenda = arg.event.id;
+			title = arg.event.title;
+			start = formataData(arg.event.start);
+			end = formataData(arg.event.end);
+			description = arg.event.extendedProps.description;
+			$('#delEvento').show(); //mostra o botao de excluir
 		}
 
 		$('#modal-title').html(title);
-		$('#txtTitulo').html(title);
-		$('#dataInicio').html(start);
-		$('#dataFinal').html(end);
-		$('#dataDescricao').html(description);
-		
+		$("#agendaId").val(idAgenda)
+		$('#agendaProfissionalId').val(idProfissional);
+		$('#txtTitulo').val(title);
+		$('#dataInicio').val(start);
+		$('#dataFinal').val(end);
+		$('#dataDescricao').val(description);
+
 		$("#modalAgenda").modal('show');
 	}
 
@@ -81,12 +92,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			url: "/conta-profissional/carregarAgenda/" + idProfissional + "/" + mes,
 			method: "GET",
 			success: function (data) {
-				if(data){
+				if (data) {
+					calendar.removeAllEvents(); //limpa os eventos para evitar duplicacao
 					calendar.addEventSource(data);
 					calendar.refetchEvents();
 				}
 			},
-			error: function(data){
+			error: function (data) {
 				alert(data);
 				return null;
 			}
@@ -96,18 +108,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	//deleta o evento
 	$("#delEvento").on('click', function () {
-		var confirm = confirm("Deseja excluir este evento?");
-
-		if(confirm){
-			//exclui
+		var confirm = window.confirm("Deseja excluir este evento?");
+		var idAgenda = $("#agendaId").val();
+		
+		if (confirm && idAgenda) {
+			$.ajax({
+				url: "/conta-profissional/deleteAgenda/" + idAgenda,
+				method: "GET",
+				success: function (data) {
+					buscaDados(idProfissional, mes);
+					$("#modalAgenda").modal('hide');
+				},
+				error: function (data) {
+					alert("Erro ao Excluir Evento!");
+					console.log(data);
+					return null;
+				}
+			});
 		}
 	});
 
 	//quando o usuario clicar nos botos que avançam ou retocedem a data ele atualiza o calendario.
 	$('.fc-button').on('click', function () {
 		var date = calendar.getDate();
-		var mes = date.getMonth()+1;
+		var mes = date.getMonth() + 1;
 		buscaDados(idProfissional, mes);
 	});
+
+	//salva a agenda
+	$("#formAgenda").submit(function (e) {
+		e.preventDefault();
+		$.ajax({
+			url: "/conta-profissional/salvarAgenda",
+			data: $(this).serialize(),
+			method: "POST",
+			success: function (data) {
+				buscaDados(idProfissional, mes);
+				$("#modalAgenda").modal('hide');
+			},
+			error: function (data) {
+				alert("Erro ao Adicionar Evento!");
+				console.log(data);
+				return null;
+			}
+		});
+	});
+
+	//formatar a data em moment
+	function formataData(data) {
+		return moment(data).format('YYYY-MM-DDTh:mm');
+	}
 
 });

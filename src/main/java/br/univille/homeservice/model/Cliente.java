@@ -17,18 +17,18 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@OneToOne(cascade = CascadeType.ALL) //CascadeType.ALL -> Tudo que acontecer no usuario reflete  no Cliente, como por exemplo apaga o Usuario, apaga o cliente.
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}) //CascadeType.ALL -> Tudo que acontecer no usuario reflete  no Cliente, como por exemplo apaga o Usuario, apaga o cliente.
 	private Usuario usuario;             //CascadeType.REFRESH -> Cada vez que trazer o Cliente vai Trazer o Usuario junto.
 										 //CascadeType.MERGE -> se acontecer uma mudanca no Usuario Ja salva o Cliente.
 										 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Pessoa pessoa;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Endereco endereco;
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Endereco endereco = new Endereco();
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private MeiosPagamento meiosPagamento;
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private MeiosPagamento meiosPagamento = new MeiosPagamento();
 
 	@Temporal(value= TemporalType.TIMESTAMP)
 	private Date dataCriacao;
@@ -38,10 +38,6 @@ public class Cliente {
 
 
 /*
-	private Avaliacao avaliacao;
-
-	private Favorito favorito;
-
 	private Avaliacao avaliacao;
 
 	private CartaoCredito cartaoCredito;

@@ -53,25 +53,27 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="post">
+                    <form id="formAgenda" th:action="@{/conta-profissional/agenda/(formAgenda)}" th:object="${agenda}" method="post">
                         <div class="modal-body">
                             <div class="col-md-12">
                                 <div class="form-row">
+                                    <input type="hidden" id="agendaId" class="form-control" th:field="*{id}">
+                                    <input type="hidden" id="agendaProfissionalId" class="form-control" th:field="*{profissional.id}">
                                     <div class="col-lg-12 form-group">
                                         <label>Titulo</label>
-                                        <input type="text" id="txtTitulo" class="form-control" value="" >
+                                        <input type="text" id="txtTitulo" class="form-control" th:field="*{titulo}" >
                                     </div>
                                     <div class="col form-group">
                                         <label>Data Inicio</label>
-                                        <input type="datetime-local" id="dataInicio" class="form-control" value="">
+                                        <input type="datetime-local" id="dataInicio" class="form-control" th:field="*{dataInicio}">
                                     </div>
                                     <div class="col form-group">
                                         <label>Data Final</label>
-                                        <input type="datetime-local" id="dataFinal" class="form-control" value="">
+                                        <input type="datetime-local" id="dataFinal" class="form-control" th:field="*{dataFinal}">
                                     </div>
                                     <div class="col-lg-12 form-group">
                                         <label>Descrição</label>
-                                        <input type="text" id="dataDescricao" class="form-control" value="" >
+                                        <input type="text" id="dataDescricao" class="form-control" th:field="*{descricao}">
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +81,7 @@
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" id="delEvento" class="btn btn-secondary">Deletar Evento</button>
+                            <button type="button" id="delEvento" class="btn btn-danger">Deletar Evento</button>
                         </div>
                     </form>
                 </div>
@@ -90,7 +92,8 @@
 
     <div th:replace="layout :: footer">
     </div>
-
+    
+    <script th:src="@{/js/agendaEventos.js}"></script>
 </body>
 
 </html>

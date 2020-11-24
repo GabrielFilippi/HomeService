@@ -16,7 +16,7 @@ public class MeiosPagamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(length = 20)
+	@Column(length = 1)
 	private int tipo;
 	
 	@Temporal(value = TemporalType.TIMESTAMP)

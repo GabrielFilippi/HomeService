@@ -7,10 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import java.util.Date;
 
 @Entity
 public class Agenda {
@@ -19,7 +15,7 @@ public class Agenda {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Profissional profissional;
 
 	@Column (length = 50)
@@ -27,9 +23,6 @@ public class Agenda {
 
 	@Column (length = 250)
 	private String descricao;
-
-	@Column (length = 50)
-	private boolean status;
 	
 	//@Temporal(value = TemporalType.DATE)
 	@Column (length = 50)
@@ -46,6 +39,7 @@ public class Agenda {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 
 	public Profissional getProfissional() {
 		return this.profissional;
@@ -63,7 +57,6 @@ public class Agenda {
 		this.titulo = titulo;
 	}
 
-
 	public String getDescricao() {
 		return this.descricao;
 	}
@@ -72,20 +65,11 @@ public class Agenda {
 		this.descricao = descricao;
 	}
 
-
-	public boolean getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-	public String getData() {
+	public String getDataInicio() {
 		return this.dataInicio;
 	}
 
-	public void setData(String data) {
+	public void setDataInicio(String data) {
 		this.dataInicio = data;
 	}
 	

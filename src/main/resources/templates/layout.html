@@ -9,8 +9,10 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}">
     <link th:href="@{/webjars/fullcalendar/5.0.1/main.min.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/select2/4.0.13/css/select2.min.css}" />
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 
 </head>
 
@@ -52,7 +54,7 @@
         <nav class="list-group">
             <a class="list-group-item" th:href="@{/minha-conta}"> Visão Geral </a>
             <a class="list-group-item" th:href="@{/minha-conta/dados}"> Meus Dados </a>
-            <a class="list-group-item" th:href="@{/minha-conta/endereco}"> Agenda </a>
+            <a class="list-group-item" th:href="@{/minha-conta/endereco}"> Endereço </a>
             <a class="list-group-item" th:href="@{/minha-conta/orcamentos}"> Orçamentos </a>
             <a class="list-group-item" th:href="@{/minha-conta/favoritos}"> Favoritos </a>
             <a class="list-group-item" th:href="@{/minha-conta/forma-pagamento}"> Formas de Pagamento </a>
@@ -80,17 +82,20 @@
         <div class="container">
             <p class="text-center text-white ">Copyright &copy; HomeServices 2020</p>
         </div>
-
+        
+        <!-- JQUERY -->
         <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+        <!-- BOOTSTRAP -->
         <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
-        <script th:src="@{/webjars/bootbox.js/4.4.0/bootbox.js}"></script>
+        <!-- FONT-AWESOME -->
         <script th:src="@{/webjars/font-awesome/5.15.1/js/all.min.js}"></script>
-
+        <!-- FULLCALENDAR -->
         <script th:src="@{/webjars/momentjs/2.24.0/min/moment.min.js}"></script>
         <script th:src="@{/webjars/fullcalendar/5.0.1/main.min.js}"></script>
         <script th:src="@{/webjars/fullcalendar/5.0.1/locales/pt-br.js}"></script>
-        <script th:src="@{/js/agendaEventos.js}"></script>
-
+        <!-- SELECT2 -->
+        <script th:src="@{/webjars/select2/4.0.13/js/select2.min.js}"></script>
+        <script th:src="@{/webjars/select2/4.0.13/js/i18n/pt-BR.js}"></script>
     </footer>
 </body>
 

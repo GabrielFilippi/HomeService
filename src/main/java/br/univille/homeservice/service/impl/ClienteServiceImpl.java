@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import br.univille.homeservice.model.Cliente;
 import br.univille.homeservice.model.Endereco;
+import br.univille.homeservice.model.MeiosPagamento;
 import br.univille.homeservice.model.Pessoa;
 import br.univille.homeservice.repository.ClienteRepository;
 import br.univille.homeservice.repository.EnderecoRepository;
+import br.univille.homeservice.repository.MeiosPagamentoRepository;
 import br.univille.homeservice.repository.PessoaRepository;
 import br.univille.homeservice.service.ClienteService;
 
@@ -23,6 +25,8 @@ public class ClienteServiceImpl implements ClienteService {
     private EnderecoRepository enderecoRepository;
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private MeiosPagamentoRepository meiosPagamentoRepository;
 
     @Override
     public Cliente getCliente(Long id) {
@@ -58,6 +62,11 @@ public class ClienteServiceImpl implements ClienteService {
     public void saveEndereco(Endereco endereco) {
         enderecoRepository.save(endereco);
 
+    }
+
+    @Override
+    public void saveMeiosPagamento(MeiosPagamento meiosPagamento) {
+        meiosPagamentoRepository.save(meiosPagamento);
     }
     
 }

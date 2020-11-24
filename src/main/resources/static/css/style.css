@@ -2,12 +2,13 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: #f6f7f9;
 }
+
 .content {
     min-height: calc(100vh - 90px);
-    margin-top:90px;
-    padding-left:70px;
-    padding-right:70px;
-    margin-bottom:30px;
+    margin-top: 90px;
+    padding-left: 70px;
+    padding-right: 70px;
+    margin-bottom: 30px;
 }
 
 time {
@@ -21,6 +22,15 @@ a {
     color: #212529
 }
 
+.card {
+    margin-bottom: 15px;
+}
+
+textarea {
+    resize: vertical;
+    overflow: auto;
+    min-height: 100px;
+}
 
 /*
     main style
@@ -53,7 +63,6 @@ a {
 
 /*minha conta styles*/
 
-
 .sectionTitlePage {
     padding: 45px 0;
     background-color: #e5e7ea;
@@ -82,18 +91,18 @@ a {
     margin-bottom: 10px;
 }
 
-.escolherFoto{
+.escolherFoto {
     font-size: 12px;
 }
 
-.escolherFoto:hover{
+.escolherFoto:hover {
     color: #ff6a00;
     text-decoration: underline;
 }
 
 /* forms styles */
 
-label{
+label {
     font-weight: 600;
 }
 

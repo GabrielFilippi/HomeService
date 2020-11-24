@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead"></head>
+
+<body>
+    <header th:replace="layout :: header"></header>
+
+    <!-- Page Content -->
+    <div class="content container">
+        <section class="sectionTitlePage">
+            <div class="container">
+                <h2 class="title-page">Novo Orçamento</h2>
+            </div> <!-- container //  -->
+        </section>
+
+        <section class="section-content padding-y">
+            <div class="container">
+
+                <div class="row">
+                    <aside th:replace="layout :: navMinhaContaProfissional">
+                    </aside>
+
+                    <main class="col-md-9">
+                        <div class="row">
+                            <div class="card col-lg-12">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <form style="width: 100%;" th:action="@{/conta-profissional/orcamentos/(formMeusDados)}" th:object="${orcamento}" method="post">
+                                            <input type="hidden" th:field="*{id}">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label for="cliente">Cliente: </label> <span> TESTE NOME </span>
+                                                    <input type="hidden" th:field="*{cliente.id}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-8">
+                                                    <label for="inputPassword4">Descrição</label>
+                                                    <textarea name="" id="" class="form-control" th:field="*{descricao}"></textarea>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="validadeOrcamento">Validade do Orçamento</label>
+                                                    <input type="date" class="form-control" id="validadeOrcamento"
+                                                        placeholder="dd/mm/yyyy" th:field="*{dataValidade}">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label for="inputPassword4">ITENS</label>
+
+                                                    <div class="table-responsive">
+                                                        <table class="table table-sm table-hover table-bordered" th:object="${itensOrcamento}">
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th scope="col">Item</th>
+                                                                    <th scope="col">Quantidade</th>
+                                                                    <th scope="col">Valor UN</th>
+                                                                    <th scope="col">Valor Total</th>
+                                                                    <th scope="col">Ação</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                                <tr class="linhas text-center" id="item_1">
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="text-center descricao" th:field="*{nome}">
+                                                                    </td>
+                                                                    <td class="center">
+                                                                        <input type="text"
+                                                                            id="quantidade" class="text-center"
+                                                                            style="width:70px;" th:field="*{quantidade}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            id="valorUnitario"
+                                                                            class="text-center valorUnitario"
+                                                                            style="width:115px;" th:field="*{valorUnitario}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            id="valorTotal" class="text-center" readonly
+                                                                            style="width:115px;" th:field="*{valorTotal}">
+                                                                    </td>
+                                                                    <td class="center">
+                                                                        <a href="javascript:void(0)"
+                                                                            class="botaoRemover" title="Remover linha">
+                                                                            <i class="fas fa-minus-circle"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <!-- total geral -->
+                                                                <tr>
+                                                                    <td height="20" colspan="6"
+                                                                        class="text-right totalGeral">
+                                                                        <b>TOTAL GERAL</b>: R$ <span
+                                                                            id="totalGeral">0,00</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2" class="text-right">
+                                                                        <button type="button" class="btn btn-dark"
+                                                                            id="botaoAdicionar">Adicionar Linha</button>
+                                                                    </td>
+                                                                    <td colspan="4" class="text-right">
+                                                                        <button type="button" id="botaoRemoverTudo"
+                                                                            class="btn btn-danger">Remover Tudo</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="float-right btn btn-primary">Enviar Orçamento</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+
+    <script th:src="@{/js/orcamento.js}"></script>
+
+</body>
+
+</html>

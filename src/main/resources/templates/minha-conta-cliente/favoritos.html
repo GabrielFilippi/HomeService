@@ -10,7 +10,7 @@
     <div class="content container">
         <section class="sectionTitlePage">
             <div class="container">
-                <h2 class="title-page">Minha Conta</h2>
+                <h2 class="title-page">Meus Favoritos</h2>
             </div> <!-- container //  -->
         </section>
 
@@ -18,63 +18,38 @@
             <div class="container">
 
                 <div class="row">
-                    <aside  th:replace="layout :: navMinhaContaCliente">
-                    </aside> 
-                    
+                    <aside th:replace="layout :: navMinhaContaCliente">
+                    </aside>
+
                     <main class="col-md-9">
 
                         <article class="card">
                             <div class="card-body">
 
-                                <div class="row">
-                                    <div class="col-md-4">
+                                <div class="row" th:if="!${#lists.isEmpty(listaFavoritos)}">
+
+                                    <div class="divFavoritoEntity col-md-4" th:each="favorito: ${listaFavoritos}" th:data-id="${favorito.id}">
                                         <figure class="itemside mb-4">
                                             <div class="aside">
                                                 <img src="#" class="border img-md">
                                             </div>
                                             <figcaption class="info">
-                                                <a href="#" class="title">Uéliton Zimmerman</a>
+                                                <a href="#" class="title" th:text="*{favorito.profissional.pessoa.nome}"></a>
                                                 <br>
                                                 <a href="#" class="btn btn-secondary btn-sm"> Enviar Mensagem </a>
-                                                <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" title=""
+                                                <a href="#" id="removerFavorito" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Remover Favorito"
                                                     data-original-title="Remove from wishlist">
                                                     <i class="fas fa-heart"></i>
                                                 </a>
                                             </figcaption>
                                         </figure>
                                     </div>
-                                    <div class="col-md-4">
-                                        <figure class="itemside mb-4">
-                                            <div class="aside">
-                                                <img src="#" class="border img-md">
-                                            </div>
-                                            <figcaption class="info">
-                                                <a href="#" class="title">Uéliton Zimmerman</a>
-                                                <br>
-                                                <a href="#" class="btn btn-secondary btn-sm"> Enviar Mensagem </a>
-                                                <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" title=""
-                                                    data-original-title="Remove from wishlist">
-                                                    <i class="fas fa-heart"></i>
-                                                </a>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <figure class="itemside mb-4">
-                                            <div class="aside">
-                                                <img src="#" class="border img-md">
-                                            </div>
-                                            <figcaption class="info">
-                                                <a href="#" class="title">Uéliton Zimmerman</a>
-                                                <br>
-                                                <a href="#" class="btn btn-secondary btn-sm"> Enviar Mensagem </a>
-                                                <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" title=""
-                                                    data-original-title="Remove from wishlist">
-                                                    <i class="fas fa-heart"></i>
-                                                </a>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
+
+                                </div>
+                                <div class="row" th:if="${#lists.isEmpty(listaFavoritos)}">
+                                    <div class="col-md-12" >
+                                        <p>Você ainda não adicionou nenhum profissional à sua lista de favoritos</p>
+                                     </div>
                                 </div>
                             </div>
                         </article>
@@ -86,6 +61,7 @@
 
     <div th:replace="layout :: footer"></div>
 
+    <script th:src="@{/js/favoritos.js}"></script>
 </body>
 
 </html>

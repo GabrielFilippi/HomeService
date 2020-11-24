@@ -26,13 +26,11 @@ public class Profissional {
 	@JoinColumn(name="habilidade_id")
 	private List<Habilidade> listaHabilidade = new ArrayList<Habilidade>();
 	
-
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Usuario usuario;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Pessoa pessoa;
-
 
 	@Column(length = 1)
 	private boolean statusAtivacao;
