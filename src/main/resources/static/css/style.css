@@ -32,6 +32,10 @@ textarea {
     min-height: 100px;
 }
 
+.required{
+    color: #ff0000;
+}
+
 /*
     main style
 */

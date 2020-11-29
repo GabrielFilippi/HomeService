@@ -48,7 +48,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests().antMatchers("/**").authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
             .and().formLogin().permitAll()
-            .defaultSuccessUrl("/", true).and().logout().permitAll();
+            .defaultSuccessUrl("/", true)
+            .and().logout().permitAll();
+
+
+            //.loginPage("URL DA PAGINA")
 
             http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
             //http.headers().frameOptions().disable();

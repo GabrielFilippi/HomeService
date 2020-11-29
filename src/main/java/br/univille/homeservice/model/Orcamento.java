@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Orcamento {
 
@@ -20,13 +22,13 @@ public class Orcamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Profissional profissional;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Cliente cliente;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Pagamento pagamento;
 
 	@Column(length = 60)
@@ -39,9 +41,11 @@ public class Orcamento {
 	private Date dataCriacao;
 
 	@Temporal(value= TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dataAgendamento;
 
 	@Temporal(value= TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dataValidade;
 
 	public long getId() {
@@ -50,6 +54,30 @@ public class Orcamento {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Profissional getProfissional() {
+		return this.profissional;
+	}
+
+	public void setProfissional(Profissional profissional) {
+		this.profissional = profissional;
+	}
+	
+	public Cliente getCliente() {
+		return this.cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Pagamento getPagamento() {
+		return this.pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
 	public int getStatus() {
@@ -83,23 +111,6 @@ public class Orcamento {
 	public void setDataValidade(Date dataValidade) {
 		this.dataValidade = dataValidade;
 	}
-
-	public Cliente getCliente() {
-		return this.cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public Pagamento getPagamento() {
-		return this.pagamento;
-	}
-
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
-	}
-
 	
 	public String getDescricao() {
 		return this.descricao;
