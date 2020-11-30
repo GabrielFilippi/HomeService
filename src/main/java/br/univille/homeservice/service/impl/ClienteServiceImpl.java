@@ -10,6 +10,7 @@ import br.univille.homeservice.model.Cliente;
 import br.univille.homeservice.model.Endereco;
 import br.univille.homeservice.model.MeiosPagamento;
 import br.univille.homeservice.model.Pessoa;
+import br.univille.homeservice.model.Usuario;
 import br.univille.homeservice.repository.ClienteRepository;
 import br.univille.homeservice.repository.EnderecoRepository;
 import br.univille.homeservice.repository.MeiosPagamentoRepository;
@@ -27,6 +28,8 @@ public class ClienteServiceImpl implements ClienteService {
     private PessoaRepository pessoaRepository;
     @Autowired
     private MeiosPagamentoRepository meiosPagamentoRepository;
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
 
     @Override
     public Cliente getCliente(Long id) {
@@ -67,6 +70,11 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public void saveMeiosPagamento(MeiosPagamento meiosPagamento) {
         meiosPagamentoRepository.save(meiosPagamento);
+    }
+
+    @Override
+    public void saveUsuario(Usuario usuario) {
+        myUserDetailsService.save(usuario);
     }
     
 }

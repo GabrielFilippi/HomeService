@@ -22,8 +22,8 @@ public class Usuario {
 	@Column(length=266)
 	private String senha;
 
-	@Column(length=1)
-	private int permissao;
+	@Column(length=50)
+	private String permissao;
 
 	@Temporal(value= TemporalType.TIMESTAMP)
 	private Date ultimoAcesso;
@@ -40,11 +40,11 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public int getPermissao() {
+	public String getPermissao() {
 		return this.permissao;
 	}
 
-	public void setPermissao(int permissao) {
+	public void setPermissao(String permissao) {
 		this.permissao = permissao;
 	}
 

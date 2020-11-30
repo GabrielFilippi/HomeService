@@ -25,10 +25,10 @@ public class Cliente {
 	private Pessoa pessoa;
 
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	private Endereco endereco = new Endereco();
+	private Endereco endereco;
 
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	private MeiosPagamento meiosPagamento = new MeiosPagamento();
+	private MeiosPagamento meiosPagamento;
 
 	@Temporal(value= TemporalType.TIMESTAMP)
 	private Date dataCriacao;

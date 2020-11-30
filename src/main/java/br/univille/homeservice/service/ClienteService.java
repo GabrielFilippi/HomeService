@@ -7,6 +7,7 @@ import br.univille.homeservice.model.Cliente;
 import br.univille.homeservice.model.Endereco;
 import br.univille.homeservice.model.MeiosPagamento;
 import br.univille.homeservice.model.Pessoa;
+import br.univille.homeservice.model.Usuario;
 
 @Service
 public interface ClienteService {
@@ -16,6 +17,7 @@ public interface ClienteService {
     void deletar(Cliente cliente);
     List<Cliente> visualizarTodos();
     void savePessoa(Pessoa pessoa);
+    void saveUsuario(Usuario usuario);
     void saveEndereco(Endereco endereco);
     void saveMeiosPagamento(MeiosPagamento meiosPagamento);
 }

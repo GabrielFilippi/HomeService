@@ -40,19 +40,20 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
             //.anyRequest().authenticated()
-            .authorizeRequests().antMatchers("/api/v1/auth/signin","/swagger-ui.html","/webjars/**","/v2/api-docs/**","/swagger-resources/**").permitAll()
+            //.authorizeRequests().antMatchers("/api/v1/auth/signin","/swagger-ui.html","/webjars/**","/v2/api-docs/**","/swagger-resources/**", "/css/**").permitAll()
+            .authorizeRequests().antMatchers("/**/").permitAll()
             .antMatchers("/api/**").authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests().antMatchers("/fonte_dados/**").permitAll().and().headers().frameOptions().disable()
             .and()
             .authorizeRequests().antMatchers("/**").authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-            .and().formLogin().permitAll()
-            .defaultSuccessUrl("/", true)
-            .and().logout().permitAll();
-
-
-            //.loginPage("URL DA PAGINA")
+            .and()
+            .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/", true)
+            .and()
+            .rememberMe()
+            .and()
+            .logout().permitAll();
 
             http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
             //http.headers().frameOptions().disable();

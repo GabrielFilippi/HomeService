@@ -35,11 +35,16 @@ public class CadastroClienteController {
     @PostMapping(params="formCadastro")
     public ModelAndView save(Cliente cliente){
 
+
+
         cliente.setDataCriacao(dataAtual);
         cliente.setDataModificacao(dataAtual);
         cliente.getPessoa().setDataCriacao(dataAtual);
         cliente.getPessoa().setDataModificacao(dataAtual);
+        cliente.getUsuario().setPermissao("ROLE_CLIENTE");
         
+        service.saveUsuario(cliente.getUsuario());
+        service.savePessoa(cliente.getPessoa());
         service.saveCliente(cliente);
         return new ModelAndView("redirect:/login");
     }

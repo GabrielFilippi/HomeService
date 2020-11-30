@@ -19,7 +19,7 @@ import br.univille.homeservice.service.ClienteService;
 import br.univille.homeservice.service.FavoritoService;
 
 @Controller
-@RequestMapping("/minha-conta")
+@RequestMapping("/minha-conta/cliente")
 public class MinhaContaClienteController {
 
     @Autowired
@@ -84,7 +84,7 @@ public class MinhaContaClienteController {
         antigoCliente.getPessoa().setDataModificacao(dataAtual);
         service.savePessoa(antigoCliente.getPessoa());
         service.saveCliente(antigoCliente);
-        return new ModelAndView("redirect:/minha-conta/dados");
+        return new ModelAndView("redirect:/minha-conta/cliente/dados");
     }
 
     // salva o endereço do cliente
@@ -95,7 +95,7 @@ public class MinhaContaClienteController {
         antigoCliente.setEndereco(cliente.getEndereco());
         service.saveEndereco(antigoCliente.getEndereco());
         service.saveCliente(antigoCliente);
-        return new ModelAndView("redirect:/minha-conta/endereco");
+        return new ModelAndView("redirect:/minha-conta/cliente/endereco");
     }
 
     // salva a forma de pagamento padrão do cliente
@@ -112,7 +112,7 @@ public class MinhaContaClienteController {
                                                                       // pagamento nele
         service.saveMeiosPagamento(antigoCliente.getMeiosPagamento()); // salva o meio de pagamento
         service.saveCliente(antigoCliente); // salva o cliente
-        return new ModelAndView("redirect:/minha-conta/forma-pagamento");
+        return new ModelAndView("redirect:/minha-conta/cliente/forma-pagamento");
     }
 
     //remove um profissional da lista de favoritos
