@@ -148,6 +148,5 @@ public class MinhaContaClienteController {
         
         myUserDetailsService.save(usuario);
         return new ModelAndView("redirect:/minha-conta/cliente/seguranca");
-        
     }
 }

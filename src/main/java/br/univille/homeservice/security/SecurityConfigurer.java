@@ -49,7 +49,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests().antMatchers("/**").authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
             .and()
-            .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/", true)
+            .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/minha-conta", true)
             .and()
             .rememberMe()
             .and()
