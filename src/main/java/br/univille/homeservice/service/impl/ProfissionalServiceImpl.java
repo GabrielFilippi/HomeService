@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.univille.homeservice.model.Certificacao;
+import br.univille.homeservice.model.Habilidade;
+import br.univille.homeservice.model.Perfil;
 import br.univille.homeservice.model.Pessoa;
 import br.univille.homeservice.model.Profissional;
 import br.univille.homeservice.repository.CertificacaoRepository;
+import br.univille.homeservice.repository.HabilidadeRepository;
+import br.univille.homeservice.repository.PerfilRepository;
 import br.univille.homeservice.repository.PessoaRepository;
 import br.univille.homeservice.repository.ProfissionalRepository;
 import br.univille.homeservice.service.ProfissionalService;
@@ -23,6 +27,10 @@ public class ProfissionalServiceImpl implements ProfissionalService {
     private PessoaRepository pessoaRepository;
     @Autowired
     private CertificacaoRepository certificacaoRepository;
+    @Autowired
+    private HabilidadeRepository habilidadeRepository;
+    @Autowired
+    private PerfilRepository perfilRepository;
 
     @Override
     public Profissional getProfissional(Long id) {
@@ -56,7 +64,7 @@ public class ProfissionalServiceImpl implements ProfissionalService {
 
     @Override
     public List<Certificacao> getAllCertificacaoById(long idProfissional) {
-       return certificacaoRepository.findAllByProfissionalId(idProfissional);
+        return certificacaoRepository.findAllByProfissionalId(idProfissional);
     }
 
     @Override
@@ -64,5 +72,29 @@ public class ProfissionalServiceImpl implements ProfissionalService {
         certificacaoRepository.delete(certificacao);
     }
 
+    @Override
+    public List<Habilidade> getAllHabilidadesById(long idProfissional) {
+        return habilidadeRepository.findAllByProfissionalId(idProfissional);
+    }
+
+    @Override
+    public void saveHabilidade(Habilidade habilidade) {
+        habilidadeRepository.save(habilidade);
+    }
+
+    @Override
+    public void deletarHabilidade(Habilidade habilidade) {
+        habilidadeRepository.delete(habilidade);
+    }
+
+    @Override
+    public void savePerfil(Perfil perfil) {
+        perfilRepository.save(perfil);
+    }
+
+    @Override
+    public void deletarPerfil(Perfil perfil) {
+        perfilRepository.delete(perfil);
+    }
     
 }

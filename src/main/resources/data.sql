@@ -133,8 +133,18 @@ INSERT INTO FAVORITO(ID, CLIENTE_ID, PROFISSIONAL_ID, DATA_CRIACAO) VALUES (1, 1
 
 /*
 
-INSERE DADOS A TABLE FAVORITOS
+INSERE DADOS A TABLE CERTIFICACAO
 
 */
+
 INSERT INTO CERTIFICACAO (ID, PROFISSIONAL_ID, DESCRICAO, NOME, VERIFICADO) VALUES (1, 1, 'No mercado de trabalho, o engenheiro eletricista pode atuar em concessionárias de energia, indústrias, consultorias, empresas prestadoras de serviços e no setor público.
 O profissional da Engenharia Elétrica pode também fiscalizar e periciar obras e serviços dentro de sua área de conhecimento, assim como exercer funções de ensino e pesquisa. Atua, inclusive, com informática e sistemas e redes de comunicação e telecomunicações com e sem fio.', 'Elétrica Residencial', 1);
+
+/*
+
+INSERE DADOS A TABLE HABILIDADE
+
+*/
+
+INSERT INTO HABILIDADE (ID, PROFISSIONAL_ID, DESCRICAO, NOME) VALUES (1, 1, 'Passagens de Cabos de rede, eletricos, telefonia e etc.', 'Troca de Cabeamento');
+INSERT INTO HABILIDADE (ID, PROFISSIONAL_ID, DESCRICAO, NOME) VALUES (2, 1, 'Instalação/Manutenção de Ar condicionado de diversas marcas', 'Instalação de Ar Condicionado');

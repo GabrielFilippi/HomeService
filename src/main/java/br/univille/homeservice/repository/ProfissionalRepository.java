@@ -8,4 +8,5 @@ import br.univille.homeservice.model.Profissional;
 @Repository
 public interface ProfissionalRepository extends JpaRepository<Profissional, Long>{
     Profissional findByUsuarioId(long idUser);
+    
 }

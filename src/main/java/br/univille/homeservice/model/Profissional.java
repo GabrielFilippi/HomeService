@@ -1,17 +1,12 @@
 package br.univille.homeservice.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,16 +16,15 @@ public class Profissional {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="habilidade_id")
-	private List<Habilidade> listaHabilidade = new ArrayList<Habilidade>();
 	
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Usuario usuario;
 
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Pessoa pessoa;
+
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Perfil perfil;
 
 	@Column(length = 1)
 	private boolean statusAtivacao;
@@ -42,21 +36,10 @@ public class Profissional {
 	private Date dataModificacao;
 
 	/*
-	private ServicoOferecido[] servicoOferecido;
-
-	private Certificacao[] certificacao;
-
-	private Orcamento orcamento;
-
-	private Agenda[] agenda;
-
-	private Favorito[] favorito;
 
 	private Avaliacao[] avaliacao;
 	
 	*/
-
-	
 
 	public long getId() {
 		return this.id;
@@ -64,14 +47,6 @@ public class Profissional {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public List<Habilidade> getListaHabilidade() {
-		return this.listaHabilidade;
-	}
-
-	public void setListaHabilidade(List<Habilidade> listaHabilidade) {
-		this.listaHabilidade = listaHabilidade;
 	}
 	
 	public Usuario getUsuario() {
@@ -88,6 +63,14 @@ public class Profissional {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public Perfil getPerfil() {
+		return this.perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 	public boolean isStatusAtivacao() {

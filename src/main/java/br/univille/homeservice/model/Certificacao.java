@@ -27,7 +27,6 @@ public class Certificacao {
 	@Column (length = 1)
 	private boolean verificado;
 	
-
 	public long getId() {
 		return this.id;
 	}

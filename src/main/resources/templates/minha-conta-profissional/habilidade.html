@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead"></head>
+
+<body>
+    <header th:replace="layout :: header"></header>
+
+    <!-- Page Content -->
+    <div class="content container">
+        <section class="sectionTitlePage">
+            <div class="container">
+                <h2 class="title-page">Orçamentos</h2>
+            </div> <!-- container //  -->
+        </section>
+
+        <section class="section-content padding-y">
+            <div class="container">
+
+                <div class="row">
+                    <aside th:replace="layout :: navMinhaContaProfissional">
+                    </aside>
+
+                    <main class="col-md-9">
+                        <div class="row justify-content-between">
+                            <a th:href="@{/minha-conta/profissional/habilidades/novo}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Adicionar Certificação</a>
+                        </div>
+                        <div class="clearfix"> &nbsp;</div>
+                        <div class="row">
+                            <div class="card col-lg-12">
+                                <div class="card-body ">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover table-bordered">
+                                            <thead>
+                                                <tr class="text-center">
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col"><i class="fas fa-cogs"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody th:if="!${#lists.isEmpty(listaHabilidade)}">
+                                                <tr th:each="habilidades, list : ${listaHabilidade}" class="text-center">
+                                                    <td th:text="${list.index +1 }"></td>
+                                                    <th th:text="${habilidades.nome}"></th>
+                                                    <td><a  th:href="@{'/minha-conta/profissional/habilidades/visualizar/' + ${habilidades.id}}" >Visualizar</a> | <a  th:href="@{'/minha-conta/profissional/habilidades/deletar/' + ${habilidades.id}}" >Excluir</a></td>
+                                                </tr>
+                                            </tbody>
+
+                                            <tbody th:if="${#lists.isEmpty(listaHabilidade)}">
+                                                <tr class="text-center">
+                                                    <td colspan="3">Você Não tem Nenhuma Habilidade Cadastrada</td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+
+</body>
+
+</html>

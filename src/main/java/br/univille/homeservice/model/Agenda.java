@@ -21,7 +21,7 @@ public class Agenda {
 	@Column (length = 50)
 	private String titulo;
 
-	@Column (length = 250)
+	@Column (length = 255)
 	private String descricao;
 	
 	//@Temporal(value = TemporalType.DATE)

@@ -18,7 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.homeservice.model.Agenda;
 import br.univille.homeservice.model.Certificacao;
+import br.univille.homeservice.model.Habilidade;
+import br.univille.homeservice.model.Perfil;
 import br.univille.homeservice.model.Profissional;
+import br.univille.homeservice.model.Usuario;
 import br.univille.homeservice.service.AgendaService;
 import br.univille.homeservice.service.ProfissionalService;
 import br.univille.homeservice.service.impl.MyUserDetailsService;
@@ -130,11 +133,11 @@ public class MinhaContaProfissionalController {
 
     // abre um formulario para uma nova certificação
     @GetMapping("certificacoes/novo")
-    public ModelAndView novoOrcamento(@ModelAttribute Certificacao certificacao) {
+    public ModelAndView novoCertificado(@ModelAttribute Certificacao certificacao) {
         return new ModelAndView("minha-conta-profissional/formCertificacao", "certificacao", certificacao);
     }
 
-    // salva os dados do profissional
+    // salva o certificado do profissional
     @PostMapping(params = "formCertificado")
     public ModelAndView salvarCertificado(Certificacao certificacao) {
         Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
@@ -155,5 +158,67 @@ public class MinhaContaProfissionalController {
     public ModelAndView deletarCertificado(@PathVariable("id") Certificacao certificacao){
         profissionalService.deletarCertificacao(certificacao);
         return new ModelAndView("redirect:/minha-conta/profissional/certificacoes");
+    }
+
+    //pagina de Habilidades do profissional
+    @GetMapping("habilidades")
+    public ModelAndView openHabilidades() {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        
+        List<Habilidade> habilidade = profissionalService.getAllHabilidadesById(profissional.getId());
+
+        return new ModelAndView("minha-conta-profissional/habilidade", "listaHabilidade", habilidade);
+    }
+
+    // abre um formulario para uma nova certificação
+    @GetMapping("habilidades/novo")
+    public ModelAndView novaHabilidade(@ModelAttribute Habilidade habilidade) {
+        return new ModelAndView("minha-conta-profissional/formHabilidade", "habilidade", habilidade);
+    }
+
+    // salva a habilidade do profissional
+    @PostMapping(params = "formHabilidade")
+    public ModelAndView salvarHabilidade(Habilidade habilidade) {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        habilidade.setProfissional(profissional);
+        
+        profissionalService.saveHabilidade(habilidade);
+        return new ModelAndView("redirect:/minha-conta/profissional/habilidades");
+    }
+
+    //visualizar/editar a habilidade
+    @GetMapping(value="/habilidades/visualizar/{id}")
+    public ModelAndView editarHabilidade(@PathVariable("id") Habilidade habilidade){
+        return new ModelAndView("minha-conta-profissional/formHabilidade", "habilidade", habilidade);
+    }
+
+    //deleta a habilidade
+    @GetMapping(value="/habilidades/deletar/{id}")
+    public ModelAndView deletarHabilidade(@PathVariable("id") Habilidade habilidade){
+        profissionalService.deletarHabilidade(habilidade);
+        return new ModelAndView("redirect:/minha-conta/profissional/habilidades");
+    }
+
+    //pagina de Habilidades do profissional
+    @GetMapping("perfil")
+    public ModelAndView openPerfil() {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        
+        Perfil perfil = profissional.getPerfil();
+        if(perfil==null){
+            perfil = new Perfil();
+        }
+        return new ModelAndView("minha-conta-profissional/perfil", "perfil", perfil);
+    }
+
+    // salva a habilidade do profissional
+    @PostMapping(params = "formPerfil")
+    public ModelAndView salvarPerfil(Perfil perfil) {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        
+        profissionalService.savePerfil(perfil);
+        profissional.setPerfil(perfil);
+        profissionalService.saveProfissional(profissional);
+        return new ModelAndView("redirect:/minha-conta/profissional/perfil");
     }
 }
