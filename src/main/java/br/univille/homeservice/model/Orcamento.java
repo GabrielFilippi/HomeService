@@ -1,5 +1,6 @@
 package br.univille.homeservice.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -41,12 +42,15 @@ public class Orcamento {
 	private Date dataCriacao;
 
 	@Temporal(value= TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	private Date dataAgendamento;
 
 	@Temporal(value= TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dataValidade;
+
+	@Column(length = 13)
+	private BigDecimal totalOrcamento;
 
 	public long getId() {
 		return this.id;
@@ -120,30 +124,12 @@ public class Orcamento {
 		this.descricao = descricao;
 	}
 
-	/*
-	public void cadastrar(Orcamento orcamento) {
-
+	public BigDecimal getTotalOrcamento() {
+		return this.totalOrcamento;
 	}
 
-	public void editar(Orcamento orcamento) {
-
+	public void setTotalOrcamento(BigDecimal totalOrcamento) {
+		this.totalOrcamento = totalOrcamento;
 	}
-
-	public void visualizar(Orcamento orcamento) {
-
-	}
-
-	public void aprovar(Orcamento orcamento) {
-
-	}
-
-	public void cancelar(Orcamento orcamento) {
-
-	}
-
-	public void notificar(Orcamento orcamento) {
-
-	}
-	*/
 
 }

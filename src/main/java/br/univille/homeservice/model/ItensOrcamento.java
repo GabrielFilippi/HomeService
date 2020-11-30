@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -26,13 +27,13 @@ public class ItensOrcamento {
 	private String nome;
 
 	@Column(length = 13)
-	private double quantidade;
+	private BigDecimal quantidade;
 
 	@Column(length = 13)
-	private double valorUnitario;
+	private BigDecimal valorUnitario;
 	
 	@Column(length = 13)
-	private double valorTotal;
+	private BigDecimal valorTotal;
 
 	@Temporal(value = TemporalType.DATE)
 	private Date dataCriacao;
@@ -61,27 +62,27 @@ public class ItensOrcamento {
 		this.nome = nome;
 	}
 	
-	public double getQuantidade() {
+	public BigDecimal getQuantidade() {
 		return this.quantidade;
 	}
 
-	public void setQuantidade(double quantidade) {
+	public void setQuantidade(BigDecimal quantidade) {
 		this.quantidade = quantidade;
 	}
 
-	public double getValorUnitario() {
+	public BigDecimal getValorUnitario() {
 		return this.valorUnitario;
 	}
 
-	public void setValorUnitario(double valorUnitario) {
+	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public double getValorTotal() {
+	public BigDecimal getValorTotal() {
 		return this.valorTotal;
 	}
 
-	public void setValorTotal(double valorTotal) {
+	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 

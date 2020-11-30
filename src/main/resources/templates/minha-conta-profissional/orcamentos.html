@@ -80,8 +80,8 @@
                                                     <td th:text="${orcamento.cliente.pessoa.nome}"></td>
                                                     <td th:text="${#dates.format(orcamento.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
                                                     <td th:text="${orcamento.status}"></td>
-                                                    <td>R$-</td>
-                                                    <td><a  >Visualizar</a></td>
+                                                    <td th:text="${'R$ ' + #numbers.formatDecimal(orcamento.totalOrcamento, 1, 'POINT', 2, 'COMMA')}"></td>
+                                                    <td><a  th:href="@{'/conta-profissional/orcamentos/visualizar/' + ${orcamento.id}}" >Visualizar</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>

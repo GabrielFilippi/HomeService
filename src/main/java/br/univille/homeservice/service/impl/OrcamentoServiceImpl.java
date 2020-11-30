@@ -1,6 +1,7 @@
 package br.univille.homeservice.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,22 @@ public class OrcamentoServiceImpl implements OrcamentoService {
     @Override
     public void saveItensOrcamento(ItensOrcamento itensOrcamento) {
         itensOrcamentoRepository.save(itensOrcamento);
+    }
+
+    @Override
+    public Orcamento visualizarOrcamento(long idOrcamento) {
+
+        Optional<Orcamento> retornoOrcamento = orcamentoRepository.findById(idOrcamento);
+
+        if (retornoOrcamento.isPresent()) {
+            return retornoOrcamento.get();
+        }
+        return null;
+    }
+
+    @Override
+    public List<ItensOrcamento> visualizarTodosItens(long idOrcamento) {
+       return itensOrcamentoRepository.findAllByOrcamentoId(idOrcamento);
     }
     
 }

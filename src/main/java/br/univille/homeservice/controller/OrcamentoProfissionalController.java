@@ -1,6 +1,8 @@
 package br.univille.homeservice.controller;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,6 +36,8 @@ public class OrcamentoProfissionalController {
 
     @Autowired
     private ProfissionalService profissionalService;
+
+    Date dataAtual = new Date();
     
     long idProfissionalTeste = 1L;
 
@@ -72,15 +77,17 @@ public class OrcamentoProfissionalController {
          
         Profissional profissional = profissionalService.getProfissional(idProfissionalTeste);
         orcamento.setProfissional(profissional);
-        
+        orcamento.setDataCriacao(dataAtual);
+
         //ORCAMENTO
         orcamentoService.saveOrcamento(orcamento);
 
         //ITENS DE ORCAMENTO
-
         String[] intemNome = request.getParameterValues("itemNome[]");
-        String[] intemQuantidade = request.getParameterValues("itemQuantidade[]");
-        String[] itemValorUnitario = request.getParameterValues("itemQuantidade[]");
+        String[] itemQuantidade = request.getParameterValues("itemQuantidade[]");
+        String[] itemValorUnitario = request.getParameterValues("itemValorUnitario[]");
+
+        BigDecimal totalOrcamento = new BigDecimal(0);
 
         for(int i=0; i<intemNome.length; i++ ){
             ItensOrcamento itensOrcamento = new ItensOrcamento();
@@ -89,24 +96,41 @@ public class OrcamentoProfissionalController {
             itensOrcamento.setNome(intemNome[i]);
 
             //quantidade
-            double quantidade = Double.parseDouble(intemQuantidade[i].replace(".", "").replace(",", "."));
+            BigDecimal quantidade = new BigDecimal(itemQuantidade[i].replace(".", "").replace(",", "."));
             itensOrcamento.setQuantidade(quantidade);
 
             //valor unitario
-            double valorUnitario = Double.parseDouble(itemValorUnitario[i].replace(".", "").replace(",", "."));
+            BigDecimal valorUnitario = new BigDecimal(itemValorUnitario[i].replace(".", "").replace(",", "."));
             itensOrcamento.setValorUnitario(valorUnitario);
 
             //total
-            itensOrcamento.setValorTotal(valorUnitario * quantidade);
+            BigDecimal total = valorUnitario.multiply(quantidade);
+            itensOrcamento.setValorTotal(total);
+            totalOrcamento = totalOrcamento.add(total);
 
             //atribui o orcamento ao item
             itensOrcamento.setOrcamento(orcamento);
+
+            itensOrcamento.setDataCriacao(dataAtual);
             //salva os itens de orcamento
             orcamentoService.saveItensOrcamento(itensOrcamento);
         }
-    
+        orcamento.setTotalOrcamento(totalOrcamento);
+        orcamentoService.saveOrcamento(orcamento);
+
         return new ModelAndView("redirect:/conta-profissional/orcamentos");
     }
 
+    //Visualizar o orcamento
+    @GetMapping(value="/visualizar/{id}")
+    public ModelAndView visualizarOrcamento(@PathVariable("id") Orcamento orcamento){
+
+        List<ItensOrcamento> listaItensOrcamento = orcamentoService.visualizarTodosItens(orcamento.getId());
+
+        ModelAndView mv = new ModelAndView("minha-conta-profissional/visualizar-orcamento");
+        mv.addObject("orcamento", orcamento);
+        mv.addObject("listaItensOrcamento", listaItensOrcamento);
+        return mv;
+    }
     
 }

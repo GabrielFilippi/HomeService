@@ -51,7 +51,7 @@ function exibirValor(valor) {
 // função para calcular o valor Total de todas as linhas
 function calculaTotalGeral() {
     var valores = 0;
-    $('input[name="valorTotal[]"]').each(function () {
+    $('input[name="itemValorTotal[]"]').each(function () {
         valor = formatarValor($(this).val());
         if (isNaN(valor)) {
             valores += parseInt(0);
