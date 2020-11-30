@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead"></head>
+
+<body>
+    <header th:replace="layout :: header"></header>
+
+    <!-- Page Content -->
+    <div class="content container">
+        <section class="sectionTitlePage">
+            <div class="container">
+                <h2 class="title-page">Orçamentos</h2>
+            </div> <!-- container //  -->
+        </section>
+
+        <section class="section-content padding-y">
+            <div class="container">
+
+                <div class="row">
+                    <aside th:replace="layout :: navMinhaContaProfissional">
+                    </aside>
+
+                    <main class="col-md-9">
+                        <article class="card" >
+                            <div class="card-body">
+                                <form class="row" th:action="@{/minha-conta/profissional/(formUsuario)}" th:object="${usuario}" method="post">
+                                    
+                                    <input type="hidden" th:field="*{id}">
+
+                                    <div class="col-md-12">
+                                        <div class="form-row">
+                                            <div class="col-lg-12 form-group">
+                                                <label>Nova Senha</label>
+                                                <input type="password" class="form-control" value="" th:field="*{senha}">
+                                            </div>
+                                            <div class="col form-group">
+                                                <label>Digite Novamente</label>
+                                                <input type="password" class="form-control" value="" >
+                                            </div>
+                                            
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </article>
+                    </main>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+
+</body>
+
+</html>

@@ -199,7 +199,7 @@ public class MinhaContaProfissionalController {
         return new ModelAndView("redirect:/minha-conta/profissional/habilidades");
     }
 
-    //pagina de Habilidades do profissional
+    //pagina do perfil do profissional
     @GetMapping("perfil")
     public ModelAndView openPerfil() {
         Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
@@ -211,7 +211,7 @@ public class MinhaContaProfissionalController {
         return new ModelAndView("minha-conta-profissional/perfil", "perfil", perfil);
     }
 
-    // salva a habilidade do profissional
+    // salva o perfil do profissional
     @PostMapping(params = "formPerfil")
     public ModelAndView salvarPerfil(Perfil perfil) {
         Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
@@ -221,4 +221,29 @@ public class MinhaContaProfissionalController {
         profissionalService.saveProfissional(profissional);
         return new ModelAndView("redirect:/minha-conta/profissional/perfil");
     }
+
+    //pagina de segurança do profissional
+    @GetMapping("seguranca")
+    public ModelAndView openSeguranca() {
+         Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+         Usuario usuario = profissional.getUsuario();
+         
+         return new ModelAndView("minha-conta-profissional/seguranca", "usuario", usuario);
+    }
+     
+    // salva o perfil do profissional
+    @PostMapping(params = "formUsuario")
+    public ModelAndView salvarUsuario(Usuario usuario) {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        
+        usuario.setLogin(profissional.getUsuario().getLogin());
+        usuario.setPermissao(profissional.getUsuario().getPermissao());
+        usuario.setUltimoAcesso(profissional.getUsuario().getUltimoAcesso());
+        usuario.setUltimoIp(profissional.getUsuario().getUltimoIp());
+        
+        myUserDetailsService.save(usuario);
+        return new ModelAndView("redirect:/minha-conta/profissional/seguranca");
+        
+    }
 }
+ 

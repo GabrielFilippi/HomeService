@@ -126,4 +126,28 @@ public class MinhaContaClienteController {
         serviceFavoritos.deletarFavorito(favorito);
         return ResponseEntity.ok().build();
     }
+    
+    //pagina de segurança do cliente
+    @GetMapping("seguranca")
+    public ModelAndView openSeguranca() {
+         Cliente cliente = service.getClienteByUser(myUserDetailsService.getUserLogged().getId());
+         Usuario usuario = cliente.getUsuario();
+         
+         return new ModelAndView("minha-conta-cliente/seguranca", "usuario", usuario);
+    }
+     
+    // salva o perfil do cliente
+    @PostMapping(params = "formUsuario")
+    public ModelAndView salvarUsuario(Usuario usuario) {
+        Cliente cliente = service.getClienteByUser(myUserDetailsService.getUserLogged().getId());
+        
+        usuario.setLogin(cliente.getUsuario().getLogin());
+        usuario.setPermissao(cliente.getUsuario().getPermissao());
+        usuario.setUltimoAcesso(cliente.getUsuario().getUltimoAcesso());
+        usuario.setUltimoIp(cliente.getUsuario().getUltimoIp());
+        
+        myUserDetailsService.save(usuario);
+        return new ModelAndView("redirect:/minha-conta/cliente/seguranca");
+        
+    }
 }
