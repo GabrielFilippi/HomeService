@@ -15,28 +15,32 @@ import org.springframework.web.servlet.ModelAndView;
 import br.univille.homeservice.model.Cliente;
 import br.univille.homeservice.model.Favorito;
 import br.univille.homeservice.model.Pessoa;
+import br.univille.homeservice.model.Usuario;
 import br.univille.homeservice.service.ClienteService;
 import br.univille.homeservice.service.FavoritoService;
+import br.univille.homeservice.service.impl.MyUserDetailsService;
 
 @Controller
 @RequestMapping("/minha-conta/cliente")
 public class MinhaContaClienteController {
 
     @Autowired
+    private MyUserDetailsService myUserDetailsService;
+    
+    @Autowired
     private ClienteService service;
 
     @Autowired
     private FavoritoService serviceFavoritos;
 
+    //data atual
     Date dataAtual = new Date();
-
-    long idClienteTeste = 1L;
 
     // pagina inicial do cliente
     @GetMapping("")
     public ModelAndView index() {
-
-        Cliente cliente = service.getCliente(idClienteTeste);
+        Cliente cliente = service.getClienteByUser(myUserDetailsService.getUserLogged().getId());
+        
         return new ModelAndView("minha-conta-cliente/index", "cliente", cliente);
     }
 
@@ -44,7 +48,7 @@ public class MinhaContaClienteController {
     @GetMapping("dados")
     public ModelAndView dados() {
 
-        Cliente cliente = service.getCliente(idClienteTeste);
+        Cliente cliente = service.getClienteByUser(myUserDetailsService.getUserLogged().getId());
         if (cliente.getPessoa() == null) {
             cliente.setPessoa(new Pessoa());
         }
@@ -55,7 +59,7 @@ public class MinhaContaClienteController {
     @GetMapping("endereco")
     public ModelAndView endereco() {
 
-        Cliente cliente = service.getCliente(idClienteTeste);
+        Cliente cliente = service.getClienteByUser(myUserDetailsService.getUserLogged().getId());
         return new ModelAndView("minha-conta-cliente/endereco", "cliente", cliente);
     }
 
@@ -63,15 +67,16 @@ public class MinhaContaClienteController {
     @GetMapping("forma-pagamento")
     public ModelAndView formaPagamento() {
 
-        Cliente cliente = service.getCliente(idClienteTeste);
+        Cliente cliente = service.getClienteByUser(myUserDetailsService.getUserLogged().getId());
         return new ModelAndView("minha-conta-cliente/forma-pagamento", "cliente", cliente);
     }
 
     // carrega a pagina de profissionais favoritos do cliente
     @GetMapping("favoritos")
     public ModelAndView favoritos() {
+        Cliente cliente = service.getClienteByUser(myUserDetailsService.getUserLogged().getId());
 
-        List<Favorito> listaFavoritos = serviceFavoritos.getFavoritos(idClienteTeste);
+        List<Favorito> listaFavoritos = serviceFavoritos.getFavoritos(cliente.getId());
         return new ModelAndView("minha-conta-cliente/favoritos", "listaFavoritos", listaFavoritos);
     }
 
@@ -121,5 +126,4 @@ public class MinhaContaClienteController {
         serviceFavoritos.deletarFavorito(favorito);
         return ResponseEntity.ok().build();
     }
-
 }

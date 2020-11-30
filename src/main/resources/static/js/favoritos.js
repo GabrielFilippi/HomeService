@@ -3,7 +3,7 @@ $("#removerFavorito").on("click", function(e){
 
     var idFavorito = $(".divFavoritoEntity").attr("data-id");
     $.ajax({
-        url: "/minha-conta/deleteFavorito/"+idFavorito,
+        url: "/minha-conta/cliente/deleteFavorito/"+idFavorito,
         method: "GET",
         success: function (data) {
             location.reload();

@@ -8,7 +8,7 @@ INSERE DADOS A TABLE PESSOA NO BANCO DE DADOS
 INSERT INTO PESSOA 
 (CELULAR, CPF, DATA_CRIACAO, EMAIL, FOTO, NOME, SEXO, TELEFONE)  
 VALUES 
-('(47) 55228-5502', '000.482.000-22', NOW(), 'teste@email.com', 'URL-FOTO-CLIENTE', 'Gabriel Anciel', 'm', '(47) 22286-3820' );
+('(47) 55228-5502', '000.482.000-22', NOW(), 'teste@email.com', 'URL-FOTO-CLIENTE', 'Gabriel Filippi', 'm', '(47) 22286-3820' );
 
 INSERT INTO PESSOA 
 (CELULAR, CPF, DATA_CRIACAO, EMAIL, FOTO, NOME, SEXO, TELEFONE)  
@@ -40,23 +40,23 @@ INSERE DADOS A TABLE USUARIO NO BANCO DE DADOS
 INSERT INTO USUARIO
 (LOGIN, PERMISSAO, SENHA, ULTIMO_ACESSO, ULTIMO_IP)
 VALUES 
-('gabrielanciel', 1, '123123', now(), '4554656564asd2' );
+('gabriel', 'ROLE_CLIENTE', '$2a$10$hrE1/x/257oTCvcqbOxCSelo0xXRJeHSbYVq0xHKweoNRIeOc9HgK', now(), '4554656564asd2' );
 INSERT INTO USUARIO
 (LOGIN, PERMISSAO, SENHA, ULTIMO_ACESSO, ULTIMO_IP)  
 VALUES 
-('gersonsmith', 1, '123123', now(), '455465653fs3r64asd2' );
+('gersonsmith', 'ROLE_CLIENTE', '$2a$10$hrE1/x/257oTCvcqbOxCSelo0xXRJeHSbYVq0xHKweoNRIeOc9HgK', now(), '455465653fs3r64asd2' );
 INSERT INTO USUARIO
 (LOGIN, PERMISSAO, SENHA, ULTIMO_ACESSO, ULTIMO_IP)  
 VALUES 
-('adriana', 1, '123123', now(), '45a235465656asdf4asd2' );
+('adriana', 'ROLE_CLIENTE', '$2a$10$hrE1/x/257oTCvcqbOxCSelo0xXRJeHSbYVq0xHKweoNRIeOc9HgK', now(), '45a235465656asdf4asd2' );
 INSERT INTO USUARIO
 (LOGIN, PERMISSAO, SENHA, ULTIMO_ACESSO, ULTIMO_IP)  
 VALUES 
-('leoncio', 1, '123123', now(), '45546356fasdf564asd2' );
+('leoncio', 'ROLE_CLIENTE', '$2a$10$hrE1/x/257oTCvcqbOxCSelo0xXRJeHSbYVq0xHKweoNRIeOc9HgK', now(), '45546356fasdf564asd2' );
 INSERT INTO USUARIO
 (LOGIN, PERMISSAO, SENHA, ULTIMO_ACESSO, ULTIMO_IP)  
 VALUES 
-('jailson', 2, '123123', now(), '45546356fasdf564asd2' ); /* profissional */
+('jailson', 'ROLE_PROFISSIONAL', '$2a$10$hrE1/x/257oTCvcqbOxCSelo0xXRJeHSbYVq0xHKweoNRIeOc9HgK', now(), '45546356fasdf564asd2' ); /* profissional */
 
 
 
@@ -130,3 +130,11 @@ INSERE DADOS A TABLE FAVORITOS
 */
 
 INSERT INTO FAVORITO(ID, CLIENTE_ID, PROFISSIONAL_ID, DATA_CRIACAO) VALUES (1, 1, 1, NOW());
+
+/*
+
+INSERE DADOS A TABLE FAVORITOS
+
+*/
+INSERT INTO CERTIFICACAO (ID, PROFISSIONAL_ID, DESCRICAO, NOME, VERIFICADO) VALUES (1, 1, 'No mercado de trabalho, o engenheiro eletricista pode atuar em concessionárias de energia, indústrias, consultorias, empresas prestadoras de serviços e no setor público.
+O profissional da Engenharia Elétrica pode também fiscalizar e periciar obras e serviços dentro de sua área de conhecimento, assim como exercer funções de ensino e pesquisa. Atua, inclusive, com informática e sistemas e redes de comunicação e telecomunicações com e sem fio.', 'Elétrica Residencial', 1);

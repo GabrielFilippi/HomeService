@@ -42,6 +42,11 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    public Cliente getClienteByUser(Long idUser) {
+        return clienteRepository.findByUsuarioId(idUser);
+    }
+
+    @Override
     public void saveCliente(Cliente cliente) {
         clienteRepository.save(cliente);
     }

@@ -21,6 +21,7 @@ public class StartApplication implements ApplicationRunner{
             usuarioAdmin = new Usuario();
             usuarioAdmin.setLogin("admin");
             usuarioAdmin.setSenha("admin");
+            usuarioAdmin.setPermissao("ROLE_CLIENTE");
             service.save(usuarioAdmin);
             //System.out.println("Salva senha " + usuarioAdmin.getSenha());
         }

@@ -5,11 +5,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +17,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.homeservice.model.Agenda;
+import br.univille.homeservice.model.Certificacao;
 import br.univille.homeservice.model.Profissional;
 import br.univille.homeservice.service.AgendaService;
 import br.univille.homeservice.service.ProfissionalService;
+import br.univille.homeservice.service.impl.MyUserDetailsService;
 import br.univille.homeservice.viewmodel.Evento;
 
 @Controller
-@RequestMapping("/conta-profissional")
+@RequestMapping("/minha-conta/profissional")
 public class MinhaContaProfissionalController {
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
+
     @Autowired
     private ProfissionalService profissionalService;
 
@@ -32,13 +37,13 @@ public class MinhaContaProfissionalController {
     private AgendaService agendaService;
 
     Date dataAtual = new Date();
-    long idProfissionalTeste = 1L;
 
     // pagina inicial do cliente
     @GetMapping("")
     public ModelAndView index() {
+        
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
 
-        Profissional profissional = profissionalService.getProfissional(idProfissionalTeste);
         return new ModelAndView("minha-conta-profissional/index", "profissional", profissional);
     }
 
@@ -46,13 +51,13 @@ public class MinhaContaProfissionalController {
     @GetMapping("dados")
     public ModelAndView dados() {
 
-        Profissional profissional = profissionalService.getProfissional(idProfissionalTeste);
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
         return new ModelAndView("minha-conta-profissional/dados", "profissional", profissional);
     }
 
     @GetMapping("agenda")
     public ModelAndView openAgenda() {
-        Profissional profissional = profissionalService.getProfissional(idProfissionalTeste);
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
         Agenda agenda = new Agenda();
 
         ModelAndView mv = new ModelAndView("minha-conta-profissional/agenda");
@@ -72,7 +77,7 @@ public class MinhaContaProfissionalController {
         profissionalService.savePessoa(antigoProfissional.getPessoa());
         profissionalService.saveProfissional(antigoProfissional);
         
-        return new ModelAndView("redirect:/conta-profissional/dados");
+        return new ModelAndView("redirect:/minha-conta/profissional/dados");
      }
 
     // carrega os eventos
@@ -100,9 +105,9 @@ public class MinhaContaProfissionalController {
     // salva a agenda
     @PostMapping(value = "/salvarAgenda", consumes = "application/x-www-form-urlencoded")
     public ResponseEntity salvarDados(Agenda agenda) {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        agenda.setProfissional(profissional);
         agendaService.save(agenda);
-        System.out.println(agenda.getTitulo());
-
         return ResponseEntity.ok().build();
     }
 
@@ -111,5 +116,44 @@ public class MinhaContaProfissionalController {
     public ResponseEntity delete(@PathVariable("id") Agenda agenda){
         agendaService.deletar(agenda);
         return ResponseEntity.ok().build();
+    }
+
+    //pagina de certificacoes do profissional
+    @GetMapping("certificacoes")
+    public ModelAndView openCertificacoes() {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        
+        List<Certificacao> certificacao = profissionalService.getAllCertificacaoById(profissional.getId());
+
+        return new ModelAndView("minha-conta-profissional/certificacao", "listaCertificacao", certificacao);
+    }
+
+    // abre um formulario para uma nova certificação
+    @GetMapping("certificacoes/novo")
+    public ModelAndView novoOrcamento(@ModelAttribute Certificacao certificacao) {
+        return new ModelAndView("minha-conta-profissional/formCertificacao", "certificacao", certificacao);
+    }
+
+    // salva os dados do profissional
+    @PostMapping(params = "formCertificado")
+    public ModelAndView salvarCertificado(Certificacao certificacao) {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        certificacao.setProfissional(profissional);
+        
+        profissionalService.saveCertificacoes(certificacao);
+        return new ModelAndView("redirect:/minha-conta/profissional/certificacoes");
+    }
+
+    //visualizar/editar o certificado
+    @GetMapping(value="/certificacoes/visualizar/{id}")
+    public ModelAndView editarCertificado(@PathVariable("id") Certificacao certificacao){
+        return new ModelAndView("minha-conta-profissional/formCertificacao", "certificacao", certificacao);
+    }
+
+    //deleta o certificado
+    @GetMapping(value="/certificacoes/deletar/{id}")
+    public ModelAndView deletarCertificado(@PathVariable("id") Certificacao certificacao){
+        profissionalService.deletarCertificacao(certificacao);
+        return new ModelAndView("redirect:/minha-conta/profissional/certificacoes");
     }
 }

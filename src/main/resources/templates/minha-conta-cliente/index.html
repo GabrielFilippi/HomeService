@@ -27,12 +27,12 @@
 
                                 <figure class="icontext">
                                     <div class="icon">
-                                        <img class="rounded-circle img-sm border" src="images/avatars/avatar3.jpg">
+                                        <img class="rounded-circle img-sm border" src="#">
                                     </div>
                                     <div class="text">
                                         <strong th:text="*{pessoa.nome}"> </strong> <br>
                                         <p class="mb-2" th:text="*{pessoa.email}"> </p>
-                                        <a href="meus-dados.html" class="btn btn-light btn-sm">Editar</a>
+                                        <a th:href="@{/minha-conta/cliente/dados}" class="btn btn-light btn-sm">Editar</a>
                                     </div>
                                 </figure>
                                 <hr>

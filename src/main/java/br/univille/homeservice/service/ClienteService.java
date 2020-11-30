@@ -13,6 +13,7 @@ import br.univille.homeservice.model.Usuario;
 public interface ClienteService {
     
     Cliente getCliente(Long id);
+    Cliente getClienteByUser(Long id);
     void saveCliente(Cliente cliente);
     void deletar(Cliente cliente);
     List<Cliente> visualizarTodos();

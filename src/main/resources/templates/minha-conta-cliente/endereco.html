@@ -25,7 +25,7 @@
 
                         <article class="card">
                             <div class="card-body">
-                                <form class="row" th:action="@{/minha-conta/endereco/(formEndereco)}" th:object="${cliente}" method="post">
+                                <form class="row" th:action="@{/minha-conta/cliente/endereco/(formEndereco)}" th:object="${cliente}" method="post">
 
                                     <input type="hidden" th:field="*{id}">
                                     <input type="hidden" th:field="*{endereco.id}">

@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	function buscaDados(idProfissional, mes) {
 		//busca os dados no banco de dados
 		$.ajax({
-			url: "/conta-profissional/carregarAgenda/" + idProfissional + "/" + mes,
+			url: "/minha-conta/profissional/carregarAgenda/" + idProfissional + "/" + mes,
 			method: "GET",
 			success: function (data) {
 				if (data) {
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		
 		if (confirm && idAgenda) {
 			$.ajax({
-				url: "/conta-profissional/deleteAgenda/" + idAgenda,
+				url: "/minha-conta/profissional/deleteAgenda/" + idAgenda,
 				method: "GET",
 				success: function (data) {
 					buscaDados(idProfissional, mes);
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	$("#formAgenda").submit(function (e) {
 		e.preventDefault();
 		$.ajax({
-			url: "/conta-profissional/salvarAgenda",
+			url: "/minha-conta/profissional/salvarAgenda",
 			data: $(this).serialize(),
 			method: "POST",
 			success: function (data) {

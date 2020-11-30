@@ -1,12 +1,15 @@
 package br.univille.homeservice.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.univille.homeservice.model.Certificacao;
 import br.univille.homeservice.model.Pessoa;
 import br.univille.homeservice.model.Profissional;
+import br.univille.homeservice.repository.CertificacaoRepository;
 import br.univille.homeservice.repository.PessoaRepository;
 import br.univille.homeservice.repository.ProfissionalRepository;
 import br.univille.homeservice.service.ProfissionalService;
@@ -18,6 +21,8 @@ public class ProfissionalServiceImpl implements ProfissionalService {
     private ProfissionalRepository profissionalRepository;
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private CertificacaoRepository certificacaoRepository;
 
     @Override
     public Profissional getProfissional(Long id) {
@@ -30,6 +35,11 @@ public class ProfissionalServiceImpl implements ProfissionalService {
     }
 
     @Override
+    public Profissional getProfissionalByUser(Long idUser) {
+        return profissionalRepository.findByUsuarioId(idUser);
+    }
+
+    @Override
     public void saveProfissional(Profissional profissional) {
         profissionalRepository.save(profissional);
     }
@@ -38,4 +48,21 @@ public class ProfissionalServiceImpl implements ProfissionalService {
     public void savePessoa(Pessoa pessoa) {
         pessoaRepository.save(pessoa);
     }
+
+    @Override
+    public void saveCertificacoes(Certificacao certificacao) {
+        certificacaoRepository.save(certificacao);
+    }
+
+    @Override
+    public List<Certificacao> getAllCertificacaoById(long idProfissional) {
+       return certificacaoRepository.findAllByProfissionalId(idProfissional);
+    }
+
+    @Override
+    public void deletarCertificacao(Certificacao certificacao) {
+        certificacaoRepository.delete(certificacao);
+    }
+
+    
 }

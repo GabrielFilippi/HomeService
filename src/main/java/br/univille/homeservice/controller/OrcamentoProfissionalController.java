@@ -23,11 +23,15 @@ import br.univille.homeservice.model.Profissional;
 import br.univille.homeservice.service.ClienteService;
 import br.univille.homeservice.service.OrcamentoService;
 import br.univille.homeservice.service.ProfissionalService;
+import br.univille.homeservice.service.impl.MyUserDetailsService;
 
 @Controller
-@RequestMapping("/conta-profissional/orcamentos")
+@RequestMapping("/minha-conta/profissional/orcamentos")
 public class OrcamentoProfissionalController {
 
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
+    
     @Autowired
     private OrcamentoService orcamentoService;
 
@@ -38,14 +42,13 @@ public class OrcamentoProfissionalController {
     private ProfissionalService profissionalService;
 
     Date dataAtual = new Date();
-    
-    long idProfissionalTeste = 1L;
 
     // pagina inicial de orcamentos
     @GetMapping("")
     public ModelAndView index() {
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
 
-        List<Orcamento> orcamentosExistentes = orcamentoService.visualizarTodos(idProfissionalTeste);
+        List<Orcamento> orcamentosExistentes = orcamentoService.visualizarTodos(profissional.getId());
         Orcamento orcamentoNovo = new Orcamento();
 
         ModelAndView mv = new ModelAndView("minha-conta-profissional/orcamentos");
@@ -74,8 +77,8 @@ public class OrcamentoProfissionalController {
     // salva o orçamento
     @PostMapping(params = "formOrcamento")
     public ModelAndView salvarOrcamento(Orcamento orcamento, HttpServletRequest request) {
-         
-        Profissional profissional = profissionalService.getProfissional(idProfissionalTeste);
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+
         orcamento.setProfissional(profissional);
         orcamento.setDataCriacao(dataAtual);
 
@@ -118,7 +121,7 @@ public class OrcamentoProfissionalController {
         orcamento.setTotalOrcamento(totalOrcamento);
         orcamentoService.saveOrcamento(orcamento);
 
-        return new ModelAndView("redirect:/conta-profissional/orcamentos");
+        return new ModelAndView("redirect:/minha-conta/profissional/orcamentos");
     }
 
     //Visualizar o orcamento

@@ -1,7 +1,10 @@
 package br.univille.homeservice.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import br.univille.homeservice.model.Certificacao;
 import br.univille.homeservice.model.Pessoa;
 import br.univille.homeservice.model.Profissional;
 
@@ -9,5 +12,9 @@ import br.univille.homeservice.model.Profissional;
 public interface ProfissionalService {
     void saveProfissional(Profissional profissional);
     Profissional getProfissional(Long id);
+    Profissional getProfissionalByUser(Long idUser);
     void savePessoa(Pessoa pessoa);
+    void saveCertificacoes(Certificacao certificacao);
+    List<Certificacao> getAllCertificacaoById(long idProfissional);
+    void deletarCertificacao(Certificacao certificacao);
 }

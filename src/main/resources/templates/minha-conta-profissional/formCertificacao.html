@@ -10,7 +10,7 @@
     <div class="content container">
         <section class="sectionTitlePage">
             <div class="container">
-                <h2 class="title-page">Minha Conta</h2>
+                <h2 class="title-page">Orçamentos</h2>
             </div> <!-- container //  -->
         </section>
 
@@ -18,34 +18,27 @@
             <div class="container">
 
                 <div class="row">
-                    <aside  th:replace="layout :: navMinhaContaCliente">
-                    </aside> 
+                    <aside th:replace="layout :: navMinhaContaProfissional">
+                    </aside>
 
                     <main class="col-md-9">
-
                         <article class="card">
                             <div class="card-body">
-                                <form class="row" th:action="@{/minha-conta/cliente/forma-pagamento/(formPagamento)}" th:object="${cliente}" method="post">
+                                <form class="row" th:action="@{/minha-conta/profissional/(formCertificado)}"
+                                    th:object="${certificacao}" method="post">
 
                                     <input type="hidden" th:field="*{id}">
-                                    <input type="hidden" th:field="*{meiosPagamento.id}">
 
                                     <div class="col-md-12">
                                         <div class="form-row">
-                                            <div class="col-md form-group">
-                                                <h4>Forma de Pagamento</h4>
+                                            <div class="col-lg-12 form-group">
+                                                <label>Certificado</label>
+                                                <input type="text" class="form-control" placeholder="Nome do Certificado"
+                                                    th:field="*{nome}">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-row">
                                             <div class="col form-group">
-                                                <label>Método de pagamento Padrão</label>
-                                                <select id="inputState" class="form-control" th:field="*{meiosPagamento.tipo}" name="meiosPagamento">
-                                                    <option th:value="0" th:text="Selecione...">Selecione...</option>
-                                                    <option th:value="1" >Cartão de Crédito</option>
-                                                    <option th:value="2" >Dinheiro</option>
-                                                </select>
+                                                <label>Descrição</label>
+                                                <textarea th:field="*{descricao}" class="form-control" placeholder="Comente algo interessante sobre este certificado"></textarea>
                                             </div>
                                         </div>
 
@@ -56,13 +49,10 @@
 
                             </div>
                         </article>
-
                     </main>
                 </div>
-
             </div>
         </section>
-
     </div>
 
     <div th:replace="layout :: footer"></div>

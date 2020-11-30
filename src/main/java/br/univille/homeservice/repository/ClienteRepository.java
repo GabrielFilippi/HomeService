@@ -9,4 +9,5 @@ import br.univille.homeservice.model.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
     List<Cliente> findAll();
+    Cliente findByUsuarioId(long idUser);
 }
