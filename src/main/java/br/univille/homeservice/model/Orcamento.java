@@ -36,7 +36,7 @@ public class Orcamento {
 	private String descricao;
 
 	@Column(length = 2)
-	private int status;
+	private StatusOrcamento status;
 
 	@Temporal(value= TemporalType.TIMESTAMP)
 	private Date dataCriacao;
@@ -84,11 +84,11 @@ public class Orcamento {
 		this.pagamento = pagamento;
 	}
 
-	public int getStatus() {
+	public StatusOrcamento getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(StatusOrcamento status) {
 		this.status = status;
 	}
 

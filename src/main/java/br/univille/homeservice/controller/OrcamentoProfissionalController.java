@@ -20,6 +20,7 @@ import br.univille.homeservice.model.Cliente;
 import br.univille.homeservice.model.ItensOrcamento;
 import br.univille.homeservice.model.Orcamento;
 import br.univille.homeservice.model.Profissional;
+import br.univille.homeservice.model.StatusOrcamento;
 import br.univille.homeservice.service.ClienteService;
 import br.univille.homeservice.service.OrcamentoService;
 import br.univille.homeservice.service.ProfissionalService;
@@ -81,6 +82,7 @@ public class OrcamentoProfissionalController {
 
         orcamento.setProfissional(profissional);
         orcamento.setDataCriacao(dataAtual);
+        orcamento.setStatus(StatusOrcamento.PENDENTE);
 
         //ORCAMENTO
         orcamentoService.saveOrcamento(orcamento);

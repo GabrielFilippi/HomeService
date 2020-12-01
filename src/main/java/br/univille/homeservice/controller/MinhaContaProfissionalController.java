@@ -19,10 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 import br.univille.homeservice.model.Agenda;
 import br.univille.homeservice.model.Certificacao;
 import br.univille.homeservice.model.Habilidade;
+import br.univille.homeservice.model.Orcamento;
 import br.univille.homeservice.model.Perfil;
 import br.univille.homeservice.model.Profissional;
+import br.univille.homeservice.model.StatusOrcamento;
 import br.univille.homeservice.model.Usuario;
 import br.univille.homeservice.service.AgendaService;
+import br.univille.homeservice.service.OrcamentoService;
 import br.univille.homeservice.service.ProfissionalService;
 import br.univille.homeservice.service.impl.MyUserDetailsService;
 import br.univille.homeservice.viewmodel.Evento;
@@ -35,6 +38,9 @@ public class MinhaContaProfissionalController {
 
     @Autowired
     private ProfissionalService profissionalService;
+    
+    @Autowired
+    private OrcamentoService orcamentoService;
 
     @Autowired
     private AgendaService agendaService;
@@ -46,8 +52,43 @@ public class MinhaContaProfissionalController {
     public ModelAndView index() {
         
         Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        List<Orcamento>  orcamento = orcamentoService.visualizarTodos(profissional.getId());
+        
+        int qtdOrcamentoPendentes = 0;
+        int qtdOrcamentoEmAnalise = 0;
+        int qtdOrcamentoAprovados = 0;
+        for(int i=0; i<orcamento.size(); i++){
+            if(orcamento.get(i).getStatus()==StatusOrcamento.PENDENTE){
+                qtdOrcamentoPendentes++;
+            }else if(orcamento.get(i).getStatus()==StatusOrcamento.AGUARDANDO_APROVACAO){
+                qtdOrcamentoEmAnalise++;
+            }else{
+                qtdOrcamentoAprovados++;
+            }
+        }
 
-        return new ModelAndView("minha-conta-profissional/index", "profissional", profissional);
+        List<Orcamento> top3Orcamento = orcamentoService.visualizarTop3Orcamentos(profissional.getId());
+
+        ModelAndView mv = new ModelAndView("minha-conta-profissional/index");
+        mv.addObject("profissional", profissional);
+        mv.addObject("qtdOrcamentoPendentes", qtdOrcamentoPendentes);
+        mv.addObject("qtdOrcamentoEmAnalise", qtdOrcamentoEmAnalise);
+        mv.addObject("qtdOrcamentoAprovados", qtdOrcamentoAprovados);
+        mv.addObject("listOrcamento", top3Orcamento);
+
+        return mv;
+    }
+
+    // pagina inicial do cliente
+    @GetMapping("visualizar-orcamentos")
+    public ModelAndView visualizarOrcamentos() {
+        
+        Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
+        List<Orcamento>  orcamento = orcamentoService.visualizarTodos(profissional.getId());
+
+        ModelAndView mv = new ModelAndView("minha-conta-profissional/visualizar-todos-orcamentos");
+        mv.addObject("listaOrcamento", orcamento);
+        return mv;
     }
 
     // carrega a página dos dados do cliente
@@ -243,7 +284,7 @@ public class MinhaContaProfissionalController {
         
         myUserDetailsService.save(usuario);
         return new ModelAndView("redirect:/minha-conta/profissional/seguranca");
-        
     }
+
 }
  

@@ -14,4 +14,5 @@ public interface OrcamentoService {
     void saveOrcamento(Orcamento orcamento);
     void saveItensOrcamento(ItensOrcamento itensOrcamento);
     List<ItensOrcamento> visualizarTodosItens(long idOrcamento);
+    List<Orcamento> visualizarTop3Orcamentos(long idProfissional);
 }

@@ -17,8 +17,8 @@
         <section class="section-content padding-y">
             <div class="container">
                 <div class="row">
-                    <aside  th:replace="layout :: navMinhaContaProfissional">
-                    </aside> 
+                    <aside th:replace="layout :: navMinhaContaProfissional">
+                    </aside>
 
                     <main class="col-md-9" th:object="${profissional}">
 
@@ -32,34 +32,33 @@
                                     <div class="text">
                                         <strong th:text="*{pessoa.nome}"> </strong> <br>
                                         <p class="mb-2" th:text="*{pessoa.email}"> </p>
-                                        <a href="meus-dados.html" class="btn btn-light btn-sm">Editar</a>
+                                        <a th:href="@{/minha-conta/profissional/dados}" class="btn btn-light btn-sm">Editar</a>
                                     </div>
                                 </figure>
                                 <hr>
-                            
-                                <article class="card-group card-stat">
 
+                                <article class="card-group card-stat">
                                     <figure class="card bg">
                                         <div class="p-3">
-                                            <h4 class="title">X</h4>
+                                            <h4 class="title" th:text="${qtdOrcamentoPendentes}"></h4>
                                             <span>Orçamentos Pendentes</span>
                                         </div>
                                     </figure>
                                     <figure class="card bg">
                                         <div class="p-3">
-                                            <h4 class="title">X</h4>
-                                            <span>Orçamentos Aprovados</span>
+                                            <h4 class="title" th:text="${qtdOrcamentoEmAnalise}"></h4>
+                                            <span>Orçamentos em Analise</span>
                                         </div>
                                     </figure>
                                     <figure class="card bg">
                                         <div class="p-3">
-                                            <h4 class="title">X</h4>
+                                            <h4 class="title" th:text="${qtdOrcamentoAprovados}">/h4>X</h4>
                                             <span>Orçamento Finalizados</span>
                                         </div>
                                     </figure>
-                                    
+
                                 </article>
-        
+
                             </div>
                         </article>
 
@@ -67,38 +66,23 @@
                             <div class="card-body">
                                 <h5 class="card-title mb-4">Orçamentos Recentes </h5> <!-- OS ULTIMOS 3 apenas -->
                                 <article class="card-group card-stat">
-                                    <figure class="card bg">
+                                    <figure class="card bg" th:each="orcamento : ${listOrcamento}">
                                         <div class="p-4">
                                             <time class="text-muted">
-                                                <i class="fa fa-calendar-alt"></i> 05/11/2020
+                                                <i class="fa fa-calendar-alt"></i> <span th:text="${#dates.format(orcamento.dataCriacao, 'dd/MM/yyyy')}"></span>
                                             </time>
-                                            <p>#298334 - Limpar Telhado </p>
-                                            <span class="textBottom text-warning">Orçamento em Negociação </span>
-                                        </div>
-                                    </figure>
-                                    <figure class="card bg">
-                                        <div class="p-4">
-                                            <time class="text-muted">
-                                                <i class="fa fa-calendar-alt"></i> 12/09/2020
-                                            </time>
-                                            <p>#169349 - Pintura Sacada </p>
-                                            <span class="textBottom text-success">Orçamento Aprovado </span>
-                                        </div>
-                                    </figure>
-                                    <figure class="card bg">
-                                        <div class="p-4">
-                                            <time class="text-muted">
-                                                <i class="fa fa-calendar-alt"></i> 12/08/2020
-                                            </time>
-                                            <p>#169992 - Resolver problema de encanamento </p>
-                                            <span class="textBottom text-dark">Orçamento Cancelado </span>
+                                            <p th:text="${'#' + orcamento.id + ' - ' + orcamento.descricao}"></p>
+        
+                                            <span class="textBottom" th:text="${orcamento.status.getDescricao()}"> </span>
+                                            <span class="textBottom" th:text="${orcamento.status.getDescricao()}"> </span>
+                                            <span class="textBottom" th:text="${orcamento.status.getDescricao()}"> </span>
                                         </div>
                                     </figure>
                                 </article>
                                 <div class="row">
                                     <div class="container">
                                         <div class="col-lg-12 divButtonOrcamentosRecentes">
-                                            <a href="#" class="btn btn-outline-primary btn-block">
+                                            <a th:href="@{/minha-conta/profissional/orcamentos}" class="btn btn-outline-primary btn-block">
                                                 Visualizar Todos os Orçamentos <i class="fa fa-chevron-right"></i>
                                             </a>
                                         </div>

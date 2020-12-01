@@ -37,7 +37,7 @@
                                 </figure>
                                 <hr>
                                 <p th:if="*{endereco} != null">
-                                    <i class="fa fa-map-marker text-muted"></i> Meu Endereço: &nbsp; <a href="meu-endereco.html"  class="btn btn-light btn-sm"> Editar</a>
+                                    <i class="fa fa-map-marker text-muted"></i> Meu Endereço: &nbsp; <a href="@{/minha-conta/cliente/endereco}"  class="btn btn-light btn-sm"> Editar</a>
                                     <br>
                                     <span th:text="*{endereco.logradouro + ', ' + endereco.numero +  ', ' + endereco.complemento + ' - ' + endereco.bairro}"></span> <br>
                                     <span th:text="*{endereco.localidade + ', ' + endereco.cep}"></span>

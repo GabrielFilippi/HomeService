@@ -50,5 +50,10 @@ public class OrcamentoServiceImpl implements OrcamentoService {
     public List<ItensOrcamento> visualizarTodosItens(long idOrcamento) {
        return itensOrcamentoRepository.findAllByOrcamentoId(idOrcamento);
     }
+
+    @Override
+    public List<Orcamento> visualizarTop3Orcamentos(long idProfissional) {
+        return orcamentoRepository.findTop3ByProfissionalId(idProfissional);
+    }
     
 }
