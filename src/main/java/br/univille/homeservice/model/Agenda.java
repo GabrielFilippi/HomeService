@@ -1,5 +1,7 @@
 package br.univille.homeservice.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Agenda {
@@ -24,13 +30,13 @@ public class Agenda {
 	@Column (length = 255)
 	private String descricao;
 	
-	//@Temporal(value = TemporalType.DATE)
-	@Column (length = 50)
-	private String dataInicio;
+	@Temporal(value = TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
+	private Date dataInicio;
 
-	//@Temporal(value = TemporalType.DATE)
-	@Column (length = 50)
-	private String dataFinal;
+	@Temporal(value = TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
+	private Date dataFinal;
 
 	public long getId() {
 		return this.id;
@@ -65,19 +71,19 @@ public class Agenda {
 		this.descricao = descricao;
 	}
 
-	public String getDataInicio() {
+	public Date getDataInicio() {
 		return this.dataInicio;
 	}
 
-	public void setDataInicio(String data) {
+	public void setDataInicio(Date data) {
 		this.dataInicio = data;
 	}
 	
-	public String getDataFinal() {
+	public Date getDataFinal() {
 		return this.dataFinal;
 	}
 
-	public void setDataFinal(String dataFinal) {
+	public void setDataFinal(Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 

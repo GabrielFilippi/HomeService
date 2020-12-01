@@ -1,5 +1,6 @@
 package br.univille.homeservice.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -130,11 +131,22 @@ public class MinhaContaProfissionalController {
         
         //monta a data para busca dos eventos do mes selecionado
         String anoAtual = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-        String dataStart = anoAtual + "-" + mes + "-01";
-        String dataEnd = anoAtual + "-" + mes + "-31";
+        String dataStart = anoAtual + "-" + mes + "-01 00:00";
+        String dataEnd = anoAtual + "-" + mes + "-31 00:00";
 
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         //busca os eventos
-        List<Agenda> eventos = agendaService.getAgenda(profissional.getId(), dataStart, dataEnd);
+        List<Agenda> eventos = null;
+        try {
+            Date start = formato.parse(dataStart);
+            Date end = formato.parse(dataEnd);
+            
+            //busca os eventos
+            eventos = agendaService.getAgenda(profissional.getId(), start, end);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         //monta a lista para retorno
         List<Evento> listEvento = new ArrayList<>();

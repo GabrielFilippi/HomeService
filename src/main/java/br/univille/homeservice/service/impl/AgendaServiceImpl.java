@@ -1,6 +1,7 @@
 package br.univille.homeservice.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class AgendaServiceImpl implements AgendaService{
     private AgendaRepository agendaRepository;
     
     @Override
-    public ArrayList<Agenda> getAgenda(long id, String dataStart, String dataEnd) {
+    public ArrayList<Agenda> getAgenda(long id, Date dataStart, Date dataEnd) {
         return agendaRepository.findAllByProfissionalIdAndDataFinalBetween(id, dataStart, dataEnd);
     }
 

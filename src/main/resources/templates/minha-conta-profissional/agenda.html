@@ -65,11 +65,11 @@
                                     </div>
                                     <div class="col form-group">
                                         <label>Data Inicio</label>
-                                        <input type="datetime-local" id="dataInicio" class="form-control" th:field="*{dataInicio}">
+                                        <input type="datetime-local" id="dataInicio" class="form-control" th:field="*{dataInicio}" pattern = "yyyy-MM-dd'T'HH:mm:ss">
                                     </div>
                                     <div class="col form-group">
                                         <label>Data Final</label>
-                                        <input type="datetime-local" id="dataFinal" class="form-control" th:field="*{dataFinal}">
+                                        <input type="datetime-local" id="dataFinal" class="form-control" th:field="*{dataFinal}" pattern = "yyyy-MM-dd'T'HH:mm:ss">
                                     </div>
                                     <div class="col-lg-12 form-group">
                                         <label>Descrição</label>
