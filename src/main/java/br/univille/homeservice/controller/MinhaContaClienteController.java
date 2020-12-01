@@ -14,10 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.homeservice.model.Cliente;
 import br.univille.homeservice.model.Favorito;
+import br.univille.homeservice.model.Orcamento;
 import br.univille.homeservice.model.Pessoa;
 import br.univille.homeservice.model.Usuario;
 import br.univille.homeservice.service.ClienteService;
 import br.univille.homeservice.service.FavoritoService;
+import br.univille.homeservice.service.OrcamentoService;
 import br.univille.homeservice.service.impl.MyUserDetailsService;
 
 @Controller
@@ -32,6 +34,9 @@ public class MinhaContaClienteController {
 
     @Autowired
     private FavoritoService serviceFavoritos;
+    
+    @Autowired
+    private OrcamentoService orcamentoService;
 
     //data atual
     Date dataAtual = new Date();
@@ -40,8 +45,21 @@ public class MinhaContaClienteController {
     @GetMapping("")
     public ModelAndView index() {
         Cliente cliente = service.getClienteByUser(myUserDetailsService.getUserLogged().getId());
-        
-        return new ModelAndView("minha-conta-cliente/index", "cliente", cliente);
+
+        List<Orcamento> listaOrcamento = orcamentoService.visualizarTodosByCliente(cliente.getId());
+        int qtdOrcamentos = listaOrcamento.size();
+
+        List<Favorito> listaFavoritos = serviceFavoritos.getFavoritos(cliente.getId());
+        int qtdFavoritos = listaFavoritos.size();
+
+        List<Orcamento> top3Orcamento = orcamentoService.visualizarTop3Orcamentos(cliente.getId());
+
+        ModelAndView mv = new ModelAndView("minha-conta-cliente/index");
+        mv.addObject("cliente", cliente);
+        mv.addObject("qtdOrcamentos", qtdOrcamentos);
+        mv.addObject("qtdFavoritos", qtdFavoritos);
+        mv.addObject("listOrcamento", top3Orcamento);
+        return mv;
     }
 
     // carrega a página dos dados do cliente

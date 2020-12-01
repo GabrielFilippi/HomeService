@@ -52,7 +52,7 @@ public class MinhaContaProfissionalController {
     public ModelAndView index() {
         
         Profissional profissional = profissionalService.getProfissionalByUser(myUserDetailsService.getUserLogged().getId());
-        List<Orcamento>  orcamento = orcamentoService.visualizarTodos(profissional.getId());
+        List<Orcamento> orcamento = orcamentoService.visualizarTodos(profissional.getId());
         
         int qtdOrcamentoPendentes = 0;
         int qtdOrcamentoEmAnalise = 0;

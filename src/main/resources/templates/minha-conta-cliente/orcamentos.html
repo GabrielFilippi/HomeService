@@ -10,7 +10,7 @@
     <div class="content container">
         <section class="sectionTitlePage">
             <div class="container">
-                <h2 class="title-page">Minha Conta</h2>
+                <h2 class="title-page">Orçamentos</h2>
             </div> <!-- container //  -->
         </section>
 
@@ -18,25 +18,50 @@
             <div class="container">
 
                 <div class="row">
-                    <aside  th:replace="layout :: navMinhaContaCliente">
-                    </aside> 
-                    
+                    <aside th:replace="layout :: navMinhaContaCliente">
+                    </aside>
+
                     <main class="col-md-9">
+                        <div class="row">
+                            <div class="card col-lg-12">
+                                <div class="card-body "> 
+                                    <form th:action="@{/minha-conta/cliente/orcamentos/(formFiltrarOrcamentos)}" th:object="${orcamentoNovo}" method="post">
+                                        <div class="form-row">
+                                            <div class="col form-group">
+                                                <label>Número do Orçamento</label>
+                                                <input type="text" class="form-control" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col form-group">
+                                                <label>Pesquisar no período</label>
+                                                <input type="date" class="form-control" value="">
+                                            </div>
+                                            <div class="col form-group">
+                                                <label> &nbsp; </label>
+                                                <input type="date" class="form-control" value="">
+                                            </div>
+                                        </div>
 
-                        <article class="card mb-4">
+                                        <button type="submit" class="btn btn-success float-right">Buscar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <article class="card mb-4" th:each="orcamento : ${listaOrcamento}">
                             <header class="card-header">
                                 <a href="#" class="float-right"> <i class="fa fa-print"></i> Imprimir</a>
-                                <strong class="d-inline-block mr-3">Orçamento ID: 298334</strong>
-                                <span>05/11/2020</span>
+                                <input type="checkbox">
+                                <strong class="d-inline-block mr-3" th:text="${'Orçamento ID: ' + orcamento.id}"></strong>
+                                <span th:text="${#dates.format(orcamento.dataCriacao, 'dd/MM/yyyy')}"></span>
                             </header>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <h6 class="text-muted">Endereço de Atendimento</h6>
-                                        <p>Gabriel Filippi <br>
-                                            Rua Xv de Novembro, 7115 - Vila Nova <br>
-                                            Joinville/SC. CEP: 89237-000
-                                        </p>
+                                        <p th:text="${orcamento.cliente.pessoa.nome}"></p>
+                                        <span th:text="${orcamento.cliente.endereco.logradouro + ', ' + orcamento.cliente.endereco.numero +  ', ' + orcamento.cliente.endereco.complemento + ' - ' + orcamento.cliente.endereco.bairro}"></span> <br>
+                                        <span th:text="${orcamento.cliente.endereco.localidade + ', ' + orcamento.cliente.endereco.cep}"></span>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="text-muted">Pagamento</h6>
@@ -45,75 +70,14 @@
                                             Visa **** 4216
                                         </span>
                                         <p>
-                                            <b>Total</b> R$456,00
+                                            <b>Total</b> R$ <span th:text="${#numbers.formatDecimal(orcamento.totalOrcamento, 1, 'POINT', 2, 'COMMA')}"></span>
                                         </p>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p class="title mb-0">Limpar Telhado </p>
-                                                    <var class="price text-muted">R$456,00</var>
-                                                </td>
-                                                <td>
-                                                    Profissional
-                                                    <br>
-                                                    Will John
-                                                </td>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <button class="btn btn-default float-right">+ Detalhes</button>
+                                <a class="btn btn-default float-right" th:href="@{'/minha-conta/cliente/orcamentos/visualizar/' + ${orcamento.id}}">+ Detalhes</a>
                             </div>
                         </article>
-
-                        <article class="card mb-4">
-                            <header class="card-header">
-                                <a href="#" class="float-right"> <i class="fa fa-print"></i> Imprimir</a>
-                                <strong class="d-inline-block mr-3">Orçamento ID: 169349</strong>
-                                <span>12/09/2020</span>
-                            </header>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted">Endereço de Atendimento</h6>
-                                        <p>Gabriel Filippi <br>
-                                            Rua Sabia, 52 - Costa e Silva <br>
-                                            Joinville/SC. CEP: 89220-030
-                                        </p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h6 class="text-muted">Pagamento</h6>
-                                        <span class="text-success">
-                                            <i class="fab fa-lg fa-cc-visa"></i>
-                                            Visa **** 4216
-                                        </span>
-                                        <p>
-                                            <b>Total</b> R$600,00
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p class="title mb-0">Pintura Sacada </p>
-                                                    <var class="price text-muted">R$600,00</var>
-                                                </td>
-                                                <td>
-                                                    Profissional
-                                                    <br>
-                                                    Uéliton Zimmerman
-                                                </td>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <button class="btn btn-default float-right">+ Detalhes</button>
-                            </div>
-                        </article>
+                        
                     </main>
                 </div>
             </div>

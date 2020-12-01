@@ -24,6 +24,11 @@ public class OrcamentoServiceImpl implements OrcamentoService {
     public List<Orcamento> visualizarTodos(long idProfissional) {
         return orcamentoRepository.findAllByProfissionalId(idProfissional);
     }
+    
+    @Override
+    public List<Orcamento> visualizarTodosByCliente(long idCliente) {
+        return orcamentoRepository.findAllByClienteId(idCliente);
+    }
 
     @Override
     public void saveOrcamento(Orcamento orcamento) {
@@ -55,5 +60,10 @@ public class OrcamentoServiceImpl implements OrcamentoService {
     public List<Orcamento> visualizarTop3Orcamentos(long idProfissional) {
         return orcamentoRepository.findTop3ByProfissionalId(idProfissional);
     }
+    @Override
+    public List<Orcamento> visualizarTop3OrcamentosByCliente(long idCliente) {
+        return orcamentoRepository.findTop3ByClienteId(idCliente);
+    }
+
     
 }

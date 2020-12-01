@@ -27,7 +27,8 @@
 
                                 <figure class="icontext">
                                     <div class="icon">
-                                        <img class="rounded-circle img-sm border" src="images/avatars/avatar3.jpg">
+                                        <img th:src="@{/images/user.png}"
+                                                    class="img-md rounded-circle border" width="50px">
                                     </div>
                                     <div class="text">
                                         <strong th:text="*{pessoa.nome}"> </strong> <br>
@@ -52,7 +53,7 @@
                                     </figure>
                                     <figure class="card bg">
                                         <div class="p-3">
-                                            <h4 class="title" th:text="${qtdOrcamentoAprovados}">/h4>X</h4>
+                                            <h4 class="title" th:text="${qtdOrcamentoAprovados}"></h4>
                                             <span>Orçamento Finalizados</span>
                                         </div>
                                     </figure>

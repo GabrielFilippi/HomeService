@@ -27,7 +27,8 @@
 
                                 <figure class="icontext">
                                     <div class="icon">
-                                        <img class="rounded-circle img-sm border" src="#">
+                                        <img th:src="@{/images/user.png}"
+                                                    class="img-md rounded-circle border" width="50px">
                                     </div>
                                     <div class="text">
                                         <strong th:text="*{pessoa.nome}"> </strong> <br>
@@ -47,13 +48,13 @@
 
                                     <figure class="card bg">
                                         <div class="p-3">
-                                            <h4 class="title">X</h4>
+                                            <h4 class="title" th:text="${qtdOrcamentos}"></h4>
                                             <span>Orçamentos</span>
                                         </div>
                                     </figure>
                                     <figure class="card bg">
                                         <div class="p-3">
-                                            <h4 class="title">X</h4>
+                                            <h4 class="title" th:text="${qtdFavoritos}"></h4>
                                             <span>Favoritos</span>
                                         </div>
                                     </figure>
@@ -67,38 +68,23 @@
                             <div class="card-body">
                                 <h5 class="card-title mb-4">Orçamentos Recentes </h5> <!-- OS ULTIMOS 3 apenas -->
                                 <article class="card-group card-stat">
-                                    <figure class="card bg">
+                                    <figure class="card bg" th:each="orcamento : ${listOrcamento}">
                                         <div class="p-4">
                                             <time class="text-muted">
-                                                <i class="fa fa-calendar-alt"></i> 05/11/2020
+                                                <i class="fa fa-calendar-alt"></i> <span th:text="${#dates.format(orcamento.dataCriacao, 'dd/MM/yyyy')}"></span>
                                             </time>
-                                            <p>#298334 - Limpar Telhado </p>
-                                            <span class="textBottom text-warning">Orçamento em Negociação </span>
-                                        </div>
-                                    </figure>
-                                    <figure class="card bg">
-                                        <div class="p-4">
-                                            <time class="text-muted">
-                                                <i class="fa fa-calendar-alt"></i> 12/09/2020
-                                            </time>
-                                            <p>#169349 - Pintura Sacada </p>
-                                            <span class="textBottom text-success">Orçamento Aprovado </span>
-                                        </div>
-                                    </figure>
-                                    <figure class="card bg">
-                                        <div class="p-4">
-                                            <time class="text-muted">
-                                                <i class="fa fa-calendar-alt"></i> 12/08/2020
-                                            </time>
-                                            <p>#169992 - Resolver problema de encanamento </p>
-                                            <span class="textBottom text-dark">Orçamento Cancelado </span>
+                                            <p th:text="${'#' + orcamento.id + ' - ' + orcamento.descricao}"></p>
+        
+                                            <span class="textBottom" th:text="${orcamento.status.getDescricao()}"> </span>
+                                            <span class="textBottom" th:text="${orcamento.status.getDescricao()}"> </span>
+                                            <span class="textBottom" th:text="${orcamento.status.getDescricao()}"> </span>
                                         </div>
                                     </figure>
                                 </article>
                                 <div class="row">
                                     <div class="container">
                                         <div class="col-lg-12 divButtonOrcamentosRecentes">
-                                            <a href="#" class="btn btn-outline-primary btn-block">
+                                            <a th:href="@{/minha-conta/cliente/orcamentos}" class="btn btn-outline-primary btn-block">
                                                 Visualizar Todos os Orçamentos <i class="fa fa-chevron-right"></i>
                                             </a>
                                         </div>
