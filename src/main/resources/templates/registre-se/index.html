@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead"></head>
+
+<body>
+    <header th:replace="layout :: header"></header>
+
+    <!-- Page Content -->
+    <div class="content container">
+
+        <section class="sectionTitlePage">
+            <div class="container">
+                <h2 class="title-page">Registre-se</h2>
+            </div> <!-- container //  -->
+        </section>
+
+        <section class="section-content padding-y">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="card col-lg-5">
+                        <div class="card-body">
+                          <h5 class="card-title">Sou um Profissional a Procura de Serviços</h5>
+                          <p class="card-text">Envie Orçamentos, tenha segurança em pagamento e faça seus clientes felizes com Facilidade!</p>
+                          <a th:href="@{/novo-usuario/novo-profissional}" class="btn btn-primary">Registre-se</a>
+                        </div>
+                    </div>
+                    <div class="card col-lg-5 ">
+                        <div class="card-body">
+                          <h5 class="card-title">Sou um Cliente a Procura de Soluções</h5>
+                          <p class="card-text">Tenha facilidade em achar profissionais com qualidade e para resolver o seu problema Rapidinho!</p>
+                          <a th:href="@{/novo-usuario/novo-cliente}" class="btn btn-primary">Registre-se</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+
+</body>
+
+</html>

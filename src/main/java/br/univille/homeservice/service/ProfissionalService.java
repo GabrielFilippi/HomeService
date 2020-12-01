@@ -9,13 +9,15 @@ import br.univille.homeservice.model.Habilidade;
 import br.univille.homeservice.model.Perfil;
 import br.univille.homeservice.model.Pessoa;
 import br.univille.homeservice.model.Profissional;
+import br.univille.homeservice.model.Usuario;
 
 @Service
 public interface ProfissionalService {
     void saveProfissional(Profissional profissional);
     Profissional getProfissional(Long id);
     Profissional getProfissionalByUser(Long idUser);
-
+    
+    void saveUsuario(Usuario usuario);
     void savePessoa(Pessoa pessoa);
 
     void saveCertificacoes(Certificacao certificacao);

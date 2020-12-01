@@ -11,6 +11,7 @@ import br.univille.homeservice.model.Habilidade;
 import br.univille.homeservice.model.Perfil;
 import br.univille.homeservice.model.Pessoa;
 import br.univille.homeservice.model.Profissional;
+import br.univille.homeservice.model.Usuario;
 import br.univille.homeservice.repository.CertificacaoRepository;
 import br.univille.homeservice.repository.HabilidadeRepository;
 import br.univille.homeservice.repository.PerfilRepository;
@@ -31,6 +32,8 @@ public class ProfissionalServiceImpl implements ProfissionalService {
     private HabilidadeRepository habilidadeRepository;
     @Autowired
     private PerfilRepository perfilRepository;
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
 
     @Override
     public Profissional getProfissional(Long id) {
@@ -95,6 +98,11 @@ public class ProfissionalServiceImpl implements ProfissionalService {
     @Override
     public void deletarPerfil(Perfil perfil) {
         perfilRepository.delete(perfil);
+    }
+
+    @Override
+    public void saveUsuario(Usuario usuario) {
+        myUserDetailsService.save(usuario);
     }
     
 }
